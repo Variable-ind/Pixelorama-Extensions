@@ -4,7 +4,7 @@ extends Node
 ### Change the "EXTENSION_NAME" and "STORE_LINK" to your choice
 ### and the version number is set from "extension.json" (version MUST be a float)
 ### Don't touch anything else
-const STORE_LINK: String = "https://raw.githubusercontent.com/Variable-ind/Pixelorama-Extensions/master/store_info.txt"
+const STORE_LINK: String = "https://raw.githubusercontent.com/Variable-Interactive/Variable-Store/master/store_info.txt"
 const EXTENSION_NAME: String = "VariableStore"  # Should be the same as the extension name in extension.json
 ### Principle/Setup:
 #  1) Make a file in the repository and store all the extensions inside it in
