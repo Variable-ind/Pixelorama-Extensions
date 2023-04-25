@@ -3,10 +3,8 @@
 [ext_resource path="res://src/Extensions/Example/elements/NewExtension.gd" type="Script" id=1]
 
 [node name="NewExtension" type="ConfirmationDialog"]
-visible = true
-margin_right = 402.0
-margin_bottom = 316.0
-rect_min_size = Vector2( 402, 316 )
+margin_right = 536.0
+margin_bottom = 442.0
 window_title = "New Extension"
 script = ExtResource( 1 )
 
@@ -101,11 +99,34 @@ margin_bottom = 30.0
 size_flags_horizontal = 3
 placeholder_text = "Your own name?"
 
-[node name="Version" type="HBoxContainer" parent="VBoxContainer"]
+[node name="ApiLevel" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 136.0
 margin_right = 520.0
 margin_bottom = 166.0
 rect_min_size = Vector2( 0, 30 )
+
+[node name="Label" type="Label" parent="VBoxContainer/ApiLevel"]
+margin_top = 8.0
+margin_right = 100.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 100, 0 )
+text = "Target Api For:"
+align = 2
+
+[node name="Api" type="OptionButton" parent="VBoxContainer/ApiLevel"]
+margin_left = 104.0
+margin_right = 247.0
+margin_bottom = 30.0
+text = "Pixelorama 0.11.x"
+items = [ "Pixelorama 0.10.x", null, false, 0, null, "Pixelorama 0.11.x", null, false, 1, null ]
+selected = 1
+
+[node name="Version" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 170.0
+margin_right = 178.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 0, 30 )
+size_flags_horizontal = 0
 
 [node name="Label" type="Label" parent="VBoxContainer/Version"]
 margin_top = 8.0
@@ -117,7 +138,7 @@ align = 2
 
 [node name="SpinBox" type="SpinBox" parent="VBoxContainer/Version"]
 margin_left = 104.0
-margin_right = 520.0
+margin_right = 178.0
 margin_bottom = 30.0
 size_flags_horizontal = 3
 min_value = 0.1
@@ -127,9 +148,9 @@ value = 0.1
 allow_greater = true
 
 [node name="License" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 170.0
+margin_top = 204.0
 margin_right = 520.0
-margin_bottom = 200.0
+margin_bottom = 234.0
 rect_min_size = Vector2( 0, 30 )
 
 [node name="Label" type="Label" parent="VBoxContainer/License"]
@@ -147,36 +168,15 @@ margin_bottom = 30.0
 size_flags_horizontal = 3
 placeholder_text = "MIT, etc..."
 
-[node name="AddDialog" type="HBoxContainer" parent="VBoxContainer"]
-visible = false
-margin_top = 204.0
-margin_right = 520.0
-margin_bottom = 234.0
-rect_min_size = Vector2( 0, 30 )
-
-[node name="Label" type="Label" parent="VBoxContainer/AddDialog"]
-margin_top = 8.0
-margin_right = 333.0
-margin_bottom = 22.0
-rect_min_size = Vector2( 100, 0 )
-text = "Shall i also throw in a pre-configured WindowDialog?"
-align = 2
-
-[node name="Custom" type="CheckBox" parent="VBoxContainer/AddDialog"]
-margin_left = 337.0
-margin_right = 520.0
-margin_bottom = 30.0
-size_flags_horizontal = 3
-
 [node name="VSplitContainer" type="VSplitContainer" parent="VBoxContainer"]
-margin_top = 204.0
-margin_right = 520.0
-margin_bottom = 204.0
-
-[node name="Save" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 208.0
+margin_top = 238.0
 margin_right = 520.0
 margin_bottom = 238.0
+
+[node name="Save" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 242.0
+margin_right = 520.0
+margin_bottom = 272.0
 rect_min_size = Vector2( 0, 30 )
 
 [node name="Label" type="Label" parent="VBoxContainer/Save"]
@@ -201,10 +201,8 @@ margin_bottom = 30.0
 text = "Choose?"
 
 [node name="FileDialog" type="FileDialog" parent="."]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 528.0
-margin_bottom = 280.0
+margin_right = 520.0
+margin_bottom = 398.0
 rect_min_size = Vector2( 172, 60.2 )
 window_title = "Open a Directory"
 mode = 2
@@ -214,88 +212,102 @@ access = 2
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 528.0
-margin_bottom = 280.0
+margin_bottom = 406.0
 dialog_text = "Error: Directory not created"
 
 [node name="Hidden" type="Node" parent="."]
 
-[node name="ApiDoc" type="RichTextLabel" parent="Hidden"]
+[node name="ApiVersions" type="Node" parent="Hidden"]
+
+[node name="1" type="RichTextLabel" parent="Hidden/ApiVersions"]
 visible = false
 margin_right = 40.0
 margin_bottom = 40.0
-text = "# A reference of the ExtensionApi
+text = "extends Node
 
-
-\"\"\"
-# gdlint: ignore=max-public-methods
-extends Node
-
+# This is a Virtual Api that is used to make extensions
 enum { FILE, EDIT, SELECT, IMAGE, VIEW, WINDOW, HELP }
 
 
-func get_current_project() -> Project:
-	return Global.current_project
+func get_api_version() -> int:
+	# Returns the api version of pixelorama
+	return 1
+
+
+func get_pixelorama_version() -> String:
+	# Returns the version of pixelorama
+	return \"0.10.0\"
 
 
 func dialog_open(open: bool) -> void:
-	Global.dialog_open(open)
+	# Tell pixelorama that a dialog is being opened
+	pass
 
 
-func get_global() -> Global:
-	return Global
+func get_current_project():
+	# Returns the current project (type: Project)
+	pass
+
+
+func get_global():
+	# Returns the Global autoload used by pixelorama
+	pass
 
 
 func get_extensions_node() -> Node:
-	return Global.control.get_node(\"Extensions\")
+	# Returns the Extensions Node (the parent of the extension's Main.tscn)
+	return Node.new()
+
+
+func get_dockable_container_ui() -> Node:
+	# Returns the DockableContainer node
+	return Node.new()
 
 
 func get_config_file() -> ConfigFile:
-	return Global.config_cache
+	# config_file contains all the settings (Brushes, sizes, preferences, etc...)
+	return ConfigFile.new()
 
 
-func get_canvas() -> Canvas:
-	return Global.canvas
+func get_canvas():
+	# Returns the canvas
+	pass
 
 
-func _get_popup_menu(menu_type: int) -> PopupMenu:
-	match menu_type:
-		FILE:
-			return Global.top_menu_container.file_menu_button.get_popup()
-		EDIT:
-			return Global.top_menu_container.edit_menu_button.get_popup()
-		SELECT:
-			return Global.top_menu_container.select_menu_button.get_popup()
-		IMAGE:
-			return Global.top_menu_container.image_menu_button.get_popup()
-		VIEW:
-			return Global.top_menu_container.view_menu_button.get_popup()
-		WINDOW:
-			return Global.top_menu_container.window_menu_button.get_popup()
-		HELP:
-			return Global.top_menu_container.help_menu_button.get_popup()
-	return null
+func get_dialogs_parent_node() -> Node:
+	# Returns the Dialog node (All dialogs are children of Dialog node)
+	return Node.new()
 
 
+# Dockable container methods
+func add_node_as_tab(node: Node, alongside_node: String) -> void:
+	# Adds a node as a tab in the same place as an already existing \"alongside_node\"
+	pass
+
+
+func remove_node_from_tab(node: Node) -> void:
+	# Removes the node from the DockableContainer
+	pass
+
+
+# Menu methods
 func add_menu_item(menu_type: int, item_name: String, item_metadata, item_id := -1) -> int:
-	var image_menu: PopupMenu = _get_popup_menu(menu_type)
-	if not image_menu:
-		return -1
-	image_menu.add_item(item_name, item_id)
-	var idx := item_id
-	if item_id == -1:
-		idx = image_menu.get_item_count() - 1
-	image_menu.set_item_metadata(idx, item_metadata)
+	# Adds an entry of name \"item_name\"
+	# as a \"menu_type\" (FILE, EDIT, SELECT, IMAGE, VIEW, WINDOW, HELP)
 
-	return idx
+	# Metadata should be of type \"Object\" which is usually a popup
+	# and it should also have a method named \"menu_item_clicked\"
+
+	# \"item_idx\" of the added entry is returned
+	return 0
 
 
 func remove_menu_item(menu_type: int, item_idx: int) -> void:
-	var image_menu: PopupMenu = _get_popup_menu(menu_type)
-	if not image_menu:
-		return
-	image_menu.remove_item(item_idx)
+	# removes an entry at \"item_idx\" from the menu_type (FILE, EDIT, SELECT, IMAGE, VIEW, WINDOW, HELP)
+	pass
 
 
+# Tool methods
 func add_tool(
 	tool_name: String,
 	display_name: String,
@@ -304,33 +316,195 @@ func add_tool(
 	extra_hint := \"\",
 	extra_shortucts := []
 ) -> void:
-	var tool_class := Tools.Tool.new(
-		tool_name, display_name, shortcut, scene, extra_hint, extra_shortucts
-	)
-	Tools.tools[tool_name] = tool_class
-	Tools.add_tool_button(tool_class)
+	# adds a tool with the above detail
+	pass
 
 
 func remove_tool(tool_name: String) -> void:
-	var tool_class: Tools.Tool = Tools.tools[tool_name]
-	if tool_class:
-		Tools.remove_tool(tool_class)
+	# removes a tool with name \"tool_name\"
+	pass
 
 
+# Theme methods
 func add_theme(theme: Theme) -> void:
-	var themes: BoxContainer = Global.preferences_dialog.find_node(\"Themes\")
-	themes.themes.append(theme)
-	themes.add_theme(theme)
+	# adds a theme
+	pass
+
+
+func find_theme_index(theme: Theme) -> int:
+	# returns index of a theme in preferences
+	return 0
 
 
 func get_theme() -> Theme:
-	return Global.control.theme
+	# returns the current theme
+	return Theme.new()
+
+
+func set_theme(idx: int) -> bool:
+	# sets a theme located at a given \"idx\" in preferences
+
+	# if theme set successfully then return true, else false
+	return false
 
 
 func remove_theme(theme: Theme) -> void:
-	Global.preferences_dialog.themes.remove_theme(theme)
+	# remove a theme from preferences
+	pass
+"
 
-\"\"\""
+[node name="2" type="RichTextLabel" parent="Hidden/ApiVersions"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+text = "# gdlint: ignore=max-public-methods
+extends Node
+
+# use these variables in your extension to access the api
+var general = GeneralAPI.new()
+var menu = MenuAPI.new()
+var dialog = DialogAPI.new()
+var panel = PanelAPI.new()
+var theme = ThemeAPI.new()
+var tools = ToolAPI.new()
+var project = ProjectAPI.new()
+
+
+# The Api Methods Start Here
+func get_api_version() -> int:
+	# Returns the api version of pixelorama
+	return 2
+
+
+class GeneralAPI:
+	# Version And Config
+	func get_pixelorama_version() -> String:
+		# Returns the version of pixelorama
+		return \"0.11.0\"
+
+	func get_config_file() -> ConfigFile:
+		# config_file contains all the settings (Brushes, sizes, preferences, etc...)
+		return ConfigFile.new()
+
+	# Nodes
+	func get_global():
+		# Returns the Global autoload used by pixelorama
+		pass
+
+	func get_extensions_node() -> Node:
+		# Returns the Extensions Node (the parent of the extension's Main.tscn)
+		return Node.new()
+
+	func get_canvas():
+		# Returns the canvas
+		pass
+
+
+class MenuAPI:
+	enum { FILE, EDIT, SELECT, IMAGE, VIEW, WINDOW, HELP }
+
+	func add_menu_item(menu_type: int, item_name: String, item_metadata, item_id := -1) -> int:
+		# item_metadata is usually a popup node you want to appear when you click the item_name
+		# that popup should also have an (menu_item_clicked) function inside it's script
+		# \"item_idx\" of the added entry is returned
+		return 0
+
+	func remove_menu_item(menu_type: int, item_idx: int) -> void:
+		# removes an entry at \"item_idx\" from the menu_type (FILE, EDIT, SELECT, IMAGE, VIEW, WINDOW, HELP)
+		pass
+
+
+class DialogAPI:
+	func show_error(text: String) -> void:
+		# shows an alert dialog with the given \"text\"
+		# useful for displaying messages like \"Incompatible API\" etc...
+		pass
+
+	func get_dialogs_parent_node() -> Node:
+		# returns the node that is the parent of the dialog used in pixelorama
+		return Node.new()
+
+	func dialog_open(open: bool) -> void:
+		# Tell pixelorama that a dialog is being opened
+		pass
+
+
+class PanelAPI:
+	func set_tabs_visible(visible: bool) -> void:
+		# sets the visibility of tabs
+		pass
+
+	func get_tabs_visible() -> bool:
+		# get the visibility of tabs
+		return false
+
+	func add_node_as_tab(node: Node, alongside_node: String) -> void:
+		# Adds a \"node\" as a tab in the same place as an already existing \"alongside_node\"
+		# INSTRUCTION
+		# After this check if tabs are invisible using (get_tabs_visible),
+		# if they are invisible, then make them visible and do yield(get_tree(), \"idle_frame\") twice
+		# After that make them invisible again
+		pass
+
+	func remove_node_from_tab(node: Node) -> void:
+		# Removes the \"node\" from the DockableContainer
+		pass
+
+
+class ThemeAPI:
+	func add_theme(theme: Theme) -> void:
+		# Adds a theme
+		pass
+
+	func find_theme_index(theme: Theme) -> int:
+		# Returns index of a theme in preferences
+		return 0
+
+	func get_theme() -> Theme:
+		# Returns the current theme
+		return Theme.new()
+
+	func set_theme(idx: int) -> bool:
+		# Sets a theme located at a given \"idx\" in preferences
+		# If theme set successfully then return true, else false
+		return false
+
+	func remove_theme(theme: Theme) -> void:
+		# Remove a theme from preferences
+		pass
+
+
+class ToolAPI:
+	# Tool methods
+	func add_tool(
+		tool_name: String,
+		display_name: String,
+		shortcut: String,
+		scene: PackedScene,
+		extra_hint := \"\",
+		extra_shortucts := [],
+		layer_types: PoolIntArray = []
+	) -> void:
+		# Adds a tool with the above detail
+		pass
+
+	func remove_tool(tool_name: String) -> void:
+		# Removes a tool with name \"tool_name\"
+		# and assign Pencil as left tool, Eraser as right tool
+		pass
+
+
+class ProjectAPI:
+	func get_current_project():
+		# Returns the current project (type: Project)
+		pass
+
+	func get_current_cel_info() -> Dictionary:
+		# As there are more than one types of cel in Pixelorama,
+		# An extension may try to use a GroupCel as a PixelCel (if it doesn't know the difference)
+		# So it's encouraged to use this function to access cels
+		return {\"cel\": null, \"type\": \"\"}
+"
 
 [node name="ExportCfg" type="RichTextLabel" parent="Hidden"]
 visible = false
@@ -344,7 +518,7 @@ runnable=true
 custom_features=\"\"
 export_filter=\"all_resources\"
 include_filter=\"*.json\"
-exclude_filter=\"\"
+exclude_filter=\"exclude_filter=\"res://src/Extensions/Example/ExtensionsApi.gd\"\"
 export_path=\"\"
 script_export_mode=1
 script_encryption_key=\"\"
@@ -383,17 +557,16 @@ margin_right = 40.0
 margin_bottom = 40.0
 text = "extends Node
 
-var extension_api :Node  # Needed for reference to \"ExtensionsApi\" node of Pixelorama (Used most of the time)
 
 # This script acts as a setup for the extension
 func _enter_tree() -> void:
-	extension_api = get_node_or_null(\"/root/ExtensionsApi\")
-	if extension_api:
-		pass
+	# add a test panel as a tab
+	# ExtensionsApi.panel.add_node_as_tab(Panel.new(), \"Main Canvas\")
+	pass
 
 func _exit_tree() -> void:
-	if extension_api:
-		pass"
+	pass
+"
 
 [node name="MainTscn" type="RichTextLabel" parent="Hidden"]
 visible = false
@@ -426,6 +599,10 @@ config/name=\"Example\"
 config/description=\"A pixelorama Extention (The \\\"Name\\\" and \\\"Description\\\" field are not related to extention system so they can be anything)\"
 run/main_scene=\"res://src/Extensions/Example/Main.tscn\"
 
+[autoload]
+
+ExtensionsApi=\"*res://src/Extensions/Example/ExtensionsApi.gd\"
+
 [physics]
 
 common/enable_pause_aware_picking=true
@@ -436,81 +613,14 @@ quality/driver/driver_name=\"GLES2\"
 vram_compression/import_etc=true
 vram_compression/import_etc2=false"
 
-[node name="DialogGd" type="RichTextLabel" parent="Hidden"]
-visible = false
-margin_right = 40.0
-margin_bottom = 40.0
-text = "extends WindowDialog
-
-
-####################################################
-###                                              ###
-########       Enter Your code Here         ########
-
-# Declare member variables here. Examples:
-# var a: int = 2
-# var b: String = \"text\"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	# if you want to interact with other elements while popup is
-	# open then use show() instead of popup() and popup_centered()
-	show()
-
-###                                             ####
-####################################################
-
-
-#### You don't have to touch anything below
-var _global :Node  # Needed for reference to \"Global\" node of Pixelorama (Used most of the time)
-
-
-func _on_Instructions_visibility_changed() -> void:  # Popup the dialog
-	_global = get_node_or_null(\"/root/Global\")
-	if visible:
-		set_global_position(OS.window_size/2.0 - rect_size/2.0)
-
-
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouse:
-		var mouse_pos = get_local_mouse_position()
-
-		# Avoid canvas interaction if hovering above dialog
-		if _global:
-			if Rect2(Vector2.ZERO, rect_size).has_point(mouse_pos):
-				_global.can_draw = false
-			else:
-				if _global.has_focus:
-					_global.can_draw = true
-"
-
-[node name="DialogTscn" type="RichTextLabel" parent="Hidden"]
-visible = false
-margin_right = 40.0
-margin_bottom = 40.0
-text = "[gd_scene load_steps=2 format=2]
-
-[ext_resource path=\"res://src/Extensions/%s/Dialog/Dialog.gd\" type=\"Script\" id=1]
-
-[node name=\"Instructions\" type=\"WindowDialog\"]
-margin_right = 399.0
-margin_bottom = 301.0
-rect_min_size = Vector2( 150, 150 )
-window_title = \"Instructions\"
-resizable = true
-script = ExtResource( 1 )
-
-[connection signal=\"visibility_changed\" from=\".\" to=\".\" method=\"_on_Instructions_visibility_changed\"]"
-
 [connection signal="about_to_show" from="." to="." method="_on_NewExtension_about_to_show"]
 [connection signal="confirmed" from="." to="." method="_on_NewExtension_confirmed"]
 [connection signal="text_changed" from="VBoxContainer/Name/LineEdit" to="." method="_on_Name_text_changed"]
 [connection signal="text_changed" from="VBoxContainer/DisplayName/LineEdit" to="." method="_on_DisplayName_text_changed"]
 [connection signal="text_changed" from="VBoxContainer/Description/LineEdit" to="." method="_on_Description_text_changed"]
 [connection signal="text_changed" from="VBoxContainer/Author/LineEdit" to="." method="_on_Author_text_changed"]
+[connection signal="item_selected" from="VBoxContainer/ApiLevel/Api" to="." method="_on_Target_Api_selected"]
 [connection signal="value_changed" from="VBoxContainer/Version/SpinBox" to="." method="_on_Version_value_changed"]
 [connection signal="text_changed" from="VBoxContainer/License/LineEdit" to="." method="_on_License_text_changed"]
-[connection signal="toggled" from="VBoxContainer/AddDialog/Custom" to="." method="_on_Custom_toggled"]
 [connection signal="pressed" from="VBoxContainer/Save/Choose" to="." method="_on_Choose_pressed"]
 [connection signal="dir_selected" from="FileDialog" to="." method="_on_FileDialog_dir_selected"]

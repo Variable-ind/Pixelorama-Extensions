@@ -165,7 +165,8 @@ __meta__ = {
 }
 
 [node name="NewExtension" parent="." instance=ExtResource( 5 )]
+rect_min_size = Vector2( 170, 59.5 )
 
-[connection signal="visibility_changed" from="." to="." method="_on_Instructions_visibility_changed"]
 [connection signal="pressed" from="Content/VBoxContainer/Label/Create" to="." method="_on_Create_pressed"]
 [connection signal="pressed" from="Content/VBoxContainer/HBoxContainer/Button" to="." method="_on_Button_pressed"]
+[connection signal="popup_hide" from="NewExtension" to="." method="_on_NewExtension_popup_hide"]
