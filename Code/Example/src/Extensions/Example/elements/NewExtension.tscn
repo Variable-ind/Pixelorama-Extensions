@@ -12,10 +12,10 @@ script = ExtResource( 1 )
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = 7.0
-margin_right = -6.0
-margin_bottom = -7.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -36.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 margin_left = 7.0
@@ -382,13 +382,13 @@ text = "# gdlint: ignore=max-public-methods
 extends Node
 
 # use these variables in your extension to access the api
-var general = GeneralAPI.new()
-var menu = MenuAPI.new()
-var dialog = DialogAPI.new()
-var panel = PanelAPI.new()
-var theme = ThemeAPI.new()
-var tools = ToolAPI.new()
-var project = ProjectAPI.new()
+var general := GeneralAPI.new()
+var menu := MenuAPI.new()
+var dialog := DialogAPI.new()
+var panel := PanelAPI.new()
+var theme := ThemeAPI.new()
+var tools := ToolAPI.new()
+var project := ProjectAPI.new()
 
 
 # The Api Methods Start Here
@@ -582,7 +582,7 @@ text = "extends Node
 # This script acts as a setup for the extension
 func _enter_tree() -> void:
 	# add a test panel as a tab
-	# ExtensionsApi.panel.add_node_as_tab(Panel.new(), \"Main Canvas\")
+#	ExtensionsApi.panel.add_node_as_tab(Panel.new(), \"Main Canvas\")
 	pass
 
 func _exit_tree() -> void:
