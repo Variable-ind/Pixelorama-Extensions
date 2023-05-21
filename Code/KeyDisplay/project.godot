@@ -11,7 +11,12 @@ config_version=4
 [application]
 
 config/name="KeyDisplay"
-run/main_scene="res://src/Extensions/KeyDisplay/KeyDisplay.tscn"
+config/description="A pixelorama Extention (The \"Name\" and \"Description\" field are not related to extention system so they can be anything)"
+run/main_scene="res://src/Extensions/KeyDisplay/Main.tscn"
+
+[autoload]
+
+ExtensionsApi="*res://src/Extensions/KeyDisplay/ExtensionsApi.gd"
 
 [physics]
 
