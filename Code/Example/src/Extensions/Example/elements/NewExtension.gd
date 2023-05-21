@@ -52,7 +52,7 @@ func _on_Target_Api_selected(index: int) -> void:
 
 
 func _on_Version_value_changed(value: float) -> void:
-	extension_json.version = value
+	extension_json.version = str(value)
 
 
 func _on_License_text_changed(new_text: String) -> void:
