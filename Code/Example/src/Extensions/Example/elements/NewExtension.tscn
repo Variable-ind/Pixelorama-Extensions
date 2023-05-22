@@ -389,6 +389,7 @@ var panel := PanelAPI.new()
 var theme := ThemeAPI.new()
 var tools := ToolAPI.new()
 var project := ProjectAPI.new()
+var signals := SignalsAPI.new()
 
 
 # The Api Methods Start Here
