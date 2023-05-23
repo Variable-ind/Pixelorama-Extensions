@@ -411,6 +411,22 @@ class GeneralAPI:
 	# Nodes
 	func get_global():
 		# Returns the Global autoload used by pixelorama
+		# (Global contains references to the important UI elements along with some global properties)
+		pass
+
+	func get_drawing_algos():
+		# returns the DrawingAlgos autoload used by pixelorama
+		pass
+
+	func get_shader_image_effect():
+		# gices you a new ShaderImageEffect class. this class can apply shader to an image
+		# it has contains a method
+		# generate_image(img: Image, shader: Shader, params: Dictionary, size: Vector2)
+		## PARAMETERS
+		## img --> image that the shader will be pasted to (Empty Image of size same as project)
+		## shader --> preload of the shader
+		## params --> a dictionary of params used by the shader
+		## size --> It is the project's size
 		pass
 
 	func get_extensions_node() -> Node:
@@ -515,21 +531,28 @@ class ToolAPI:
 class ProjectAPI:
 	func get_current_project():
 		# Returns the current project (type: Project)
-		pass
+		return null
 
-	func get_current_cel_info() -> Dictionary:
-		# As there are more than one types of cel in Pixelorama,
-		# An extension may try to use a GroupCel as a PixelCel (if it doesn't know the difference)
-		# So it's encouraged to use this function to access cels
+	func get_project_info(project) -> Dictionary:
+		# Returns dictionary containing all the project information
+		return {}
 
+	func get_current_cel():
+		# returns the current cel
+		# cel type can be checked using method (get_class_name)
 		# type can be \"GroupCel\", \"PixelCel\", \"Cel3D\", and \"BaseCel\"
-		return {\"cel\": null, \"type\": \"\"}
+		return null
 
-	func get_cel_info_at(project, frame: int, layer: int) -> Dictionary:
+	func get_cel_at(project, frame: int, layer: int):
 		# frames from left to right, layers from bottom to top
 		# frames/layers start at \"0\"
 		# and end at (project.frames.size() - 1) and (project.layers.size() - 1) respectively
-		return {\"cel\": null, \"type\": \"\"}
+		return null
+
+	func set_pixelcel_image(image: Image, frame: int, layer: int):
+		# target project will be the current project
+		# frames from left to right, layers from bottom to top
+		pass
 
 
 class SignalsAPI:
@@ -612,14 +635,19 @@ margin_right = 40.0
 margin_bottom = 40.0
 text = "extends Node
 
+# some references to nodes that will be created later
+#var panel
 
 # This script acts as a setup for the extension
 func _enter_tree() -> void:
-	# add a test panel as a tab
-#	ExtensionsApi.panel.add_node_as_tab(Panel.new(), \"Main Canvas\")
+	# add a test panel as a tab  (this is an example)
+#	panel = Panel.new()
+#	ExtensionsApi.panel.add_node_as_tab(panel)
 	pass
 
 func _exit_tree() -> void:
+	# remember to remove things that you added using this extension
+#	ExtensionsApi.panel.remove_node_from_tab(panel)
 	pass
 "
 

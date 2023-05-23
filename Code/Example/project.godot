@@ -14,6 +14,10 @@ config/name="Example"
 config/description="This extension is used to make extensions"
 run/main_scene="res://src/Extensions/Example/Main.tscn"
 
+[autoload]
+
+ExtensionsApi="*res://src/Extensions/Example/ExtensionsApi.gd"
+
 [physics]
 
 common/enable_pause_aware_picking=true
