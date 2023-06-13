@@ -9,13 +9,14 @@ var panel := PanelAPI.new()
 var theme := ThemeAPI.new()
 var tools := ToolAPI.new()
 var project := ProjectAPI.new()
+var exports := ExportAPI.new()
 var signals := SignalsAPI.new()
 
 
 # The Api Methods Start Here
 func get_api_version() -> int:
 	# Returns the api version of pixelorama
-	return 2
+	return 3
 
 
 class GeneralAPI:
@@ -172,6 +173,31 @@ class ProjectAPI:
 	func set_pixelcel_image(image: Image, frame: int, layer: int):
 		# target project will be the current project
 		# frames from left to right, layers from bottom to top
+		pass
+
+
+class ExportAPI:
+	enum ExportTab { IMAGE = 0, SPRITESHEET = 1}
+
+	func add_export_option(
+		format_info: Dictionary, exporter_generator, tab := ExportTab.IMAGE, is_animated := true
+	) -> int:
+		# PARAMETERS:
+		# format_info has keys "extension" and "description" whose values are of type String
+		# FOR EXAMPLE
+			# format_info = {"extension": ".gif", "description": "GIF Image"}
+
+		# exporter_generator is the node containing a script which has method (override_export)
+		# which has 1 argument of type Dictionary which has keys
+		# "processed_images", "durations", "export_dialog", "export_paths", "project"
+
+		# if the value of tab is not in ExportTab then the format will be added to both
+
+		# returns the index of exporter. use this in (remove_export_option)
+		return 0
+
+	func remove_export_option(id: int):
+		# Removes the exporter from Pixelorama
 		pass
 
 

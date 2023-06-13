@@ -1,0 +1,8 @@
+[gd_resource type="NativeScript" load_steps=2 format=2]
+
+[ext_resource path="res://addons/godout/animation/webp/webp.tres" type="GDNativeLibrary" id=1]
+
+[resource]
+resource_name = "Webp"
+class_name = "Webp"
+library = ExtResource( 1 )

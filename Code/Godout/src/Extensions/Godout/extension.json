@@ -1,0 +1,10 @@
+{
+"author": "Variable",
+"description": "Godout Extension",
+"display_name": "Godout",
+"license": "MIT",
+"name": "Godout",
+"nodes": [ "Main.tscn" ],
+"supported_api_versions": [ 3 ],
+"version": "0.1"
+}
