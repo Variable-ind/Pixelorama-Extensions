@@ -1,11 +1,10 @@
 {
-    "name": "KeyDisplay",
-    "display_name": "Key Display",
-    "description": "a simple key Display for Tutorials",
-    "author": "Variable",
-    "version": "0.2",
-    "license": "MIT",
-    "nodes": [
-        "Main.tscn"
-    ]
+"author": "Variable",
+"description": "A simple key Display for Tutorials",
+"display_name": "Key Display",
+"license": "MIT",
+"name": "KeyDisplay",
+"nodes": [ "Main.tscn" ],
+"supported_api_versions": [ 3 ],
+"version": "0.201"
 }

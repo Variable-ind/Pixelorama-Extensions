@@ -10,5 +10,3 @@ __meta__ = {
 }
 
 [node name="KeyDisplay" parent="." instance=ExtResource( 1 )]
-margin_right = 261.0
-margin_bottom = 96.0
