@@ -1,9 +1,10 @@
 {
 "author": "Variable",
-"description": "What the Extension Does",
+"description": "Some custom themes",
 "display_name": "Set of Themes by Variable",
 "license": "MIT",
 "name": "ThemePack",
 "nodes": [ "Main.tscn" ],
-"version": "0.1"
+"supported_api_versions": [ 3 ],
+"version": "0.11"
 }

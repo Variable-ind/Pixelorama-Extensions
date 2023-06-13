@@ -27,19 +27,13 @@ The details for the extentions in the repo is as follows; <p>
   
   ![Store](https://user-images.githubusercontent.com/77773850/164515247-1e11123d-c071-42d4-9b4e-275de492dce6.png)<p>
 
-**AverageColor:** Sometimes you need to find average of 2 colors.., this extension does it for you!!
-  
-  ![Average](https://user-images.githubusercontent.com/77773850/163723698-6879ff60-631e-4c4a-bbc1-1e3a8d36a3a0.png)<p>
+**Godout:** Extension that uses rust language and the power of ![Godout](https://github.com/IsotoxalDev/Godout) to give you an exponentially Fast GIF Exporter and a new WEBP Exporter.
+    
+  ![Godout](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/13a929d6-98bf-490e-8a7c-a542effb0b3e)<p>
 
 **KeyDisplay:** Handy extension to display shortcuts for use in videos
   
-  ![Key](https://user-images.githubusercontent.com/77773850/163723707-698a74a1-b8d5-401c-bb70-74dc8b6f2e98.png)<p>
-
-**PerspectiveEditor:** Lets you create Perspective lines Quickly and Easily
-  ![Screenshot from 2022-07-08 18-16-20](https://user-images.githubusercontent.com/77773850/178000309-33b7b857-2c2e-4c21-bfbd-527e143c3b79.png)<p>
-  
-**Recorder:** Lets you save a snapshot at every undo/redo event to be combined later as a video
-  ![recorder](https://user-images.githubusercontent.com/77773850/181867485-11f85783-cd08-446b-a960-e078053d7fc0.png)<p>
+  ![Key](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/dcedd193-1c37-4311-8dc2-ee0b65de8cec)<p>
 
 **SpritesheetPreview:** Lets you preview your frames as a spritesheet. Now you can immediately move them to the right places
   
