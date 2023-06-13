@@ -39,7 +39,7 @@ var offset = Vector2.ZERO
 
 
 func _on_Preview_visibility_changed() -> void:  # Popup the dialog
-	_global = get_node_or_null("/root/Global")
+	_global = ExtensionsApi.general.get_global()
 	if visible:
 		set_global_position(OS.window_size/2.0 - rect_size/2.0)
 		update_preview()
@@ -135,6 +135,7 @@ func _input(event: InputEvent) -> void:
 				scale_right = false
 				scale_up = false
 				scale_down = false
+#####################################################################
 
 
 func _on_Hue_value_changed(value: float) -> void:
@@ -172,7 +173,7 @@ func update_preview():
 	for param in params:
 		material.set_shader_param(param, params[param])
 
-	main.global.dialog_open(false)
+	ExtensionsApi.dialog.dialog_open(false)
 
 
 func _hv_mode():
@@ -211,23 +212,23 @@ func _on_OptionButton_item_selected(index: int) -> void:
 func _on_Load_pressed() -> void:
 	var maploader = main.apply_dialog.get_node("MapLoader")
 	var opensave = get_node_or_null("/root/OpenSave")
-	var global = main.global
+	var global = ExtensionsApi.general.get_global()
 
 	maploader.popup(Rect2(self.rect_position, maploader.rect_size))
 	if opensave:
 		var save_path = opensave.current_save_paths[global.current_project_index]
 		maploader.current_path = save_path
 
-	global.dialog_open(true)
+	ExtensionsApi.dialog.dialog_open(true)
 
 
 func _on_PreviewPanel_mouse_entered() -> void:
-	var global = main.global
+	var global = ExtensionsApi.general.get_global()
 	global.control.left_cursor.visible = global.show_left_tool_icon
 	global.control.right_cursor.visible = global.show_right_tool_icon
 
 
 func _on_PreviewPanel_mouse_exited() -> void:
-	var global = main.global
+	var global = ExtensionsApi.general.get_global()
 	global.control.left_cursor.visible = false
 	global.control.right_cursor.visible = false
