@@ -27,6 +27,10 @@ The details for the extentions in the repo is as follows; <p>
   
   ![Store](https://user-images.githubusercontent.com/77773850/164515247-1e11123d-c071-42d4-9b4e-275de492dce6.png)<p>
 
+**Godout:** Extension that uses rust language and the power of ![Godout](https://github.com/IsotoxalDev/Godout) to give you an exponentially Fast GIF Exporter and a new WEBP Exporter.
+    
+  ![Godout](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/13a929d6-98bf-490e-8a7c-a542effb0b3e)<p>
+
 **KeyDisplay:** Handy extension to display shortcuts for use in videos
   
   ![Key](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/dcedd193-1c37-4311-8dc2-ee0b65de8cec)<p>
