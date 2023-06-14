@@ -16,6 +16,10 @@ func _ready() -> void:
 	ExtensionsApi.general.get_global().tabs.connect("tab_changed", self, "tab_changed")
 
 
+func menu_item_clicked():
+	popup_centered()
+
+
 func set_nodes() -> void:
 	preview = $VBoxContainer/AspectRatioContainer/Preview
 	selection_checkbox = $VBoxContainer/OptionsContainer/SelectionCheckBox

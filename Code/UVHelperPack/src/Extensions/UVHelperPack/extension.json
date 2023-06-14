@@ -4,7 +4,7 @@
     "description": "Helper tools for UV mapping",
     "author": "Variable",
     "supported_api_versions": [ 3 ],
-    "version": "0.31",
+    "version": "0.32",
     "license": "MIT",
     "nodes": [
         "Main.tscn"
