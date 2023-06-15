@@ -1,0 +1,10 @@
+{
+"author": "Variable",
+"description": "Replaces all instances of a Color with a New Color",
+"display_name": "Helper Extension for Re-Coloring",
+"license": "MIT",
+"name": "Swappy",
+"nodes": [ "Main.tscn" ],
+"supported_api_versions": [ 3 ],
+"version": "0.1"
+}

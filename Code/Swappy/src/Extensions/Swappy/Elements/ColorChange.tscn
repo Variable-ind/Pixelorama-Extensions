@@ -1,0 +1,103 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Extensions/Swappy/graphics/color_change.png" type="Texture" id=1]
+[ext_resource path="res://src/Extensions/Swappy/Elements/ColorChange.gd" type="Script" id=2]
+
+[node name="ColorChange" type="VBoxContainer"]
+margin_right = 24.0
+margin_bottom = 44.0
+alignment = 1
+script = ExtResource( 2 )
+
+[node name="Replace" type="Button" parent="."]
+margin_left = 2.0
+margin_right = 22.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+hint_tooltip = "\"Replaces all instances of Left Tool Color
+with the right tool color\""
+size_flags_horizontal = 4
+
+[node name="TextureRect" type="TextureRect" parent="Replace"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 1 )
+expand = true
+
+[node name="OpenOptions" type="Button" parent="."]
+margin_top = 24.0
+margin_right = 24.0
+margin_bottom = 44.0
+text = "..."
+
+[node name="Dialogs" type="Control" parent="."]
+margin_top = 48.0
+margin_right = 24.0
+margin_bottom = 48.0
+
+[node name="Options" type="PopupPanel" parent="Dialogs"]
+unique_name_in_owner = true
+margin_right = 191.0
+margin_bottom = 74.0
+
+[node name="GridContainer" type="GridContainer" parent="Dialogs/Options"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 187.0
+margin_bottom = 70.0
+columns = 2
+
+[node name="Header" type="Label" parent="Dialogs/Options/GridContainer"]
+margin_right = 64.0
+margin_bottom = 14.0
+theme_type_variation = "Header"
+text = "Options:"
+
+[node name="Spacer" type="HSeparator" parent="Dialogs/Options/GridContainer"]
+margin_left = 68.0
+margin_right = 183.0
+margin_bottom = 14.0
+
+[node name="Label" type="Label" parent="Dialogs/Options/GridContainer"]
+margin_top = 21.0
+margin_right = 64.0
+margin_bottom = 35.0
+text = "Apply to :"
+align = 2
+
+[node name="OptionButton" type="OptionButton" parent="Dialogs/Options/GridContainer"]
+margin_left = 68.0
+margin_top = 18.0
+margin_right = 183.0
+margin_bottom = 38.0
+text = "Entire Project"
+items = [ "Entire Project", null, false, 0, null, "Selected Cels", null, false, 1, null ]
+selected = 0
+
+[node name="Label2" type="Label" parent="Dialogs/Options/GridContainer"]
+margin_top = 47.0
+margin_right = 64.0
+margin_bottom = 61.0
+text = "Similarity:"
+align = 2
+
+[node name="Similarity" type="SpinBox" parent="Dialogs/Options/GridContainer"]
+margin_left = 68.0
+margin_top = 42.0
+margin_right = 183.0
+margin_bottom = 66.0
+hint_tooltip = "The Replacement will also get applied to colors that are similar in some way to the color being changed
+
+Usually it's just 100% but set it to 99.99% if any problems arise (like color not getting replaced)"
+step = 0.01
+value = 100.0
+suffix = "%"
+
+[connection signal="pressed" from="Replace" to="." method="replace"]
+[connection signal="pressed" from="OpenOptions" to="." method="_on_OpenOptions_pressed"]
+[connection signal="item_selected" from="Dialogs/Options/GridContainer/OptionButton" to="." method="_on_OptionButton_item_selected"]
+[connection signal="value_changed" from="Dialogs/Options/GridContainer/Similarity" to="." method="_on_Similarity_value_changed"]
