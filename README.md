@@ -35,6 +35,10 @@ The details for the extentions in the repo is as follows; <p>
   
   ![Key](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/dcedd193-1c37-4311-8dc2-ee0b65de8cec)<p>
 
+**Swappy:** Helper Extension for Re-Coloring. Replaces all instances of a Color with a New Color.
+  
+  ![Swappy](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/e4d1e2b9-03d8-4a6d-9834-e29ca7fbf463)<p>
+
 **SpritesheetPreview:** Lets you preview your frames as a spritesheet. Now you can immediately move them to the right places
   
   ![Spritesheet Preview](https://user-images.githubusercontent.com/77773850/164038514-6d741e4a-0ade-4823-8948-ef6917c70a38.png)<p>
