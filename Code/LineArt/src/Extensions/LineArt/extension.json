@@ -1,0 +1,10 @@
+{
+"author": "Variable",
+"description": "Adds a lineart shader from https://godotshaders.com/shader/line-art",
+"display_name": "Line Art Effect",
+"license": "MIT",
+"name": "LineArt",
+"nodes": [ "Main.tscn" ],
+"supported_api_versions": [ 3 ],
+"version": "0.1"
+}
