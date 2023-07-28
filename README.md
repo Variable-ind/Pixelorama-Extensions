@@ -35,7 +35,7 @@ The details for the extentions in the repo is as follows; <p>
   
   ![Key](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/dcedd193-1c37-4311-8dc2-ee0b65de8cec)<p>
 
-**LaieArt:** Adds a lineart shader from https://godotshaders.com/shader/line-art
+**LineArt:** Adds a lineart shader from https://godotshaders.com/shader/line-art
   ![Key](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/d725a4b7-627b-4a1d-8553-f743070893ef)<p>
 
 **Swappy:** Helper Extension for Re-Coloring. Replaces all instances of a Color with a New Color.
