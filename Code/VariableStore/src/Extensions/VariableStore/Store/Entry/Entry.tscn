@@ -7,7 +7,7 @@
 self_modulate = Color( 0.411765, 0.411765, 0.411765, 1 )
 margin_right = 399.0
 margin_bottom = 140.0
-rect_min_size = Vector2( 0, 140 )
+rect_min_size = Vector2( 250, 140 )
 size_flags_horizontal = 3
 script = ExtResource( 1 )
 
@@ -30,13 +30,14 @@ anchor_bottom = 1.0
 margin_right = -6.0
 margin_bottom = -8.0
 
-[node name="Picture" type="TextureRect" parent="Panel/HBoxContainer"]
+[node name="Picture" type="TextureButton" parent="Panel/HBoxContainer"]
 margin_right = 100.0
 margin_bottom = 124.0
 rect_min_size = Vector2( 100, 0 )
-texture = ExtResource( 2 )
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 2 )
 expand = true
-stretch_mode = 6
+stretch_mode = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer"]
 margin_left = 104.0
@@ -54,7 +55,7 @@ margin_top = 18.0
 margin_right = 283.0
 margin_bottom = 100.0
 size_flags_vertical = 3
-text = "DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescription"
+text = "Description"
 readonly = true
 wrap_enabled = true
 
@@ -107,6 +108,20 @@ margin_right = -8.0
 margin_bottom = -36.0
 align = 1
 valign = 1
+
+[node name="EnlardedThumbnail" type="WindowDialog" parent="."]
+margin_right = 349.0
+margin_bottom = 303.0
+window_title = "Thumbnai"
+
+[node name="Enlarged" type="TextureRect" parent="EnlardedThumbnail"]
+unique_name_in_owner = true
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 342.0
+margin_bottom = 296.0
+expand = true
+stretch_mode = 6
 
 [connection signal="timeout" from="Panel/HBoxContainer/VBoxContainer/ProgressBar/ProgressTimer" to="." method="_on_ProgressTimer_timeout"]
 [connection signal="pressed" from="Panel/HBoxContainer/VBoxContainer/Download" to="." method="_on_Download_pressed"]

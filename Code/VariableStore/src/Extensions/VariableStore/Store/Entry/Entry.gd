@@ -4,36 +4,52 @@ extends Panel
 ### Change the "EXTENSION_NAME" and "STORE_LINK" from the (Main.gd)
 ### Don't touch anything else
 
-onready var ext_name = $Panel/HBoxContainer/VBoxContainer/Name
-onready var ext_discription = $Panel/HBoxContainer/VBoxContainer/Description
-onready var ext_picture = $Panel/HBoxContainer/Picture
-onready var down_button = $Panel/HBoxContainer/VBoxContainer/Download
 
 var extension_container :VBoxContainer
 var thumbnail := ""
 var download_link := ""
 var download_path := ""
+var tags := PoolStringArray()
 var is_update = false  # An update instead of download
 
-onready var download_request = $DownloadRequest
+onready var ext_name = $Panel/HBoxContainer/VBoxContainer/Name
+onready var ext_discription = $Panel/HBoxContainer/VBoxContainer/Description
+onready var ext_picture = $Panel/HBoxContainer/Picture
+onready var down_button = $Panel/HBoxContainer/VBoxContainer/Download
+onready var extension_downloader = $DownloadRequest
+
+signal tags_detected
 
 func set_info(info: Array, extension_path: String) -> void:
 	ext_name.text = str(info[0], "-v", info[1])  # Name with version
+	change_button_if_updatable(info[0], info[1])
 	ext_discription.text = info[2]  # Description
+	ext_discription.hint_tooltip = ext_discription.text
 	thumbnail = info[-2]  # Image link
 	download_link = info[-1]  # Download link
+
+	# Check for non-compulsory things if they exist
+	for item in info:
+		if typeof(item) == TYPE_ARRAY:
+			# first array element should always be an identifier text type
+			var identifier = item.pop_front()
+			if identifier:
+				# check for tags
+				if identifier == "Tags":
+					tags.append_array(item)
+					emit_signal("tags_detected", tags)
+
 
 	var dir := Directory.new()
 	var _error = dir.make_dir_recursive(str(extension_path,"Download/"))
 	download_path = str(extension_path,"Download/",info[0],".pck")
-	set_if_updatable(info[0], info[1])
 
-	$RequestDelay.wait_time = randf() * 2 #to prevent sending bulk requests
+	$RequestDelay.wait_time = randf() * 2 # to prevent sending bulk requests
 	$RequestDelay.start()
 
 
 func _on_RequestDelay_timeout() -> void:
-	$RequestDelay.queue_free()
+	$RequestDelay.queue_free() # node no longer needed
 	var _error = $ImageRequest.request(thumbnail) #image
 
 
@@ -52,50 +68,19 @@ func _on_ImageRequest_request_completed(_result, _response_code, _headers, body:
 					var _err4 = image.load_bmp_from_buffer(body)
 	var texture = ImageTexture.new()
 	texture.create_from_image(image)
-	ext_picture.texture = texture
-
-
-func set_if_updatable(name: String, new_version: float):
-	for extension in extension_container.extensions.keys():
-		if extension_container.extensions[extension].file_name == name:
-			var old_version = str2var(extension_container.extensions[extension].version)
-			if typeof(old_version) == TYPE_REAL:
-				if new_version > old_version:
-					down_button.text = "Update"
-					is_update = true
-				elif new_version == old_version:
-					down_button.text = "Re-Download"
+	ext_picture.texture_normal = texture
+	ext_picture.connect("pressed", self, "enlarge_thumbnail", [texture])
 
 
 func _on_Download_pressed() -> void:
 	# Download File
 	down_button.disabled = true
-	download_request.download_file = download_path
-	download_request.request(download_link)
+	extension_downloader.download_file = download_path
+	extension_downloader.request(download_link)
 	prepare_progress()
 
 
-func prepare_progress():
-	$Panel/HBoxContainer/VBoxContainer/ProgressBar.visible = true
-	$Panel/HBoxContainer/VBoxContainer/ProgressBar.value = 0
-	$Panel/HBoxContainer/VBoxContainer/ProgressBar/ProgressTimer.start()
-
-
-func _on_ProgressTimer_timeout():
-	update_progress()
-
-
-func update_progress():
-	var down = download_request.get_downloaded_bytes()
-	var total = download_request.get_body_size()
-	$Panel/HBoxContainer/VBoxContainer/ProgressBar.value = (float(down) / float(total)) * 100.0
-
-
-func close_progress():
-	$Panel/HBoxContainer/VBoxContainer/ProgressBar.visible = false
-	$Panel/HBoxContainer/VBoxContainer/ProgressBar/ProgressTimer.stop()
-
-
+# CALLED AFTER THE EXTENSION DOWNLOADER HAS FINISHED IT'S JOB
 func _on_DownloadRequest_request_completed(result: int, _response_code, _headers, _body) -> void:
 	if result == HTTPRequest.RESULT_SUCCESS:
 		# Add extension
@@ -111,14 +96,73 @@ func _on_DownloadRequest_request_completed(result: int, _response_code, _headers
 	var _error = dir.remove(download_path)
 
 
+# UPDATES THE ENTRY NODE'S UI
 func announce_done(success: bool):
 	close_progress()
 	down_button.disabled = false
-	down_button.text = "Re-Download"
 	if success:
 		$Panel/HBoxContainer/VBoxContainer/Done.visible = true
-	$DoneDelay.start()
+		down_button.text = "Re-Download"
+		$DoneDelay.start()
 
 
+# returns true if entry contains ALL tags in tag_array
+func tags_match(tag_array: PoolStringArray):
+	if tags.size() > 0:
+		for tag in tag_array:
+			if !tag in tags:
+				return false
+		return true
+	else:
+		if tag_array.size() > 0:
+			return false
+		return true
+
+
+# UPDATES THE ENTRY NODE'S UI IF IT HAS AN UPDATE AVAILABLE
+func change_button_if_updatable(name: String, new_version: float):
+	for extension in extension_container.extensions.keys():
+		if extension_container.extensions[extension].file_name == name:
+			var old_version = str2var(extension_container.extensions[extension].version)
+			if typeof(old_version) == TYPE_REAL:
+				if new_version > old_version:
+					down_button.text = "Update"
+					is_update = true
+				elif new_version == old_version:
+					down_button.text = "Re-Download"
+
+
+# Show an enlarged version of the thumbnail
+func enlarge_thumbnail(texture: ImageTexture):
+	$"%Enlarged".texture = texture
+	$"%Enlarged".get_parent().popup_centered()
+
+
+# A BEAUTIFICATION FUNCTION THAT HIDES "Done" label BAR AFTER SOME TIME
 func _on_DoneDelay_timeout() -> void:
 	$Panel/HBoxContainer/VBoxContainer/Done.visible = false
+
+
+# PROGRESS BAR METHOD
+func prepare_progress():
+	$Panel/HBoxContainer/VBoxContainer/ProgressBar.visible = true
+	$Panel/HBoxContainer/VBoxContainer/ProgressBar.value = 0
+	$Panel/HBoxContainer/VBoxContainer/ProgressBar/ProgressTimer.start()
+
+
+# PROGRESS BAR METHOD
+func update_progress():
+	var down = extension_downloader.get_downloaded_bytes()
+	var total = extension_downloader.get_body_size()
+	$Panel/HBoxContainer/VBoxContainer/ProgressBar.value = (float(down) / float(total)) * 100.0
+
+
+# PROGRESS BAR METHOD
+func close_progress():
+	$Panel/HBoxContainer/VBoxContainer/ProgressBar.visible = false
+	$Panel/HBoxContainer/VBoxContainer/ProgressBar/ProgressTimer.stop()
+
+
+# PROGRESS BAR METHOD
+func _on_ProgressTimer_timeout():
+	update_progress()

@@ -1,21 +1,19 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/Extensions/VariableStore/Store/Store.gd" type="Script" id=1]
+[ext_resource path="res://src/Extensions/VariableStore/Store/Sub Scripts/SearchManager.gd" type="Script" id=2]
+[ext_resource path="res://src/Extensions/VariableStore/Store/Sub Scripts/CustomStoreLinks.gd" type="Script" id=3]
+[ext_resource path="res://addons/BugReporter/reporter.tscn" type="PackedScene" id=4]
 
-[node name="StoreButton" type="Button"]
-margin_right = 12.0
-margin_bottom = 20.0
-text = "Variable Store"
-
-[node name="Store" type="WindowDialog" parent="."]
-margin_right = 428.0
-margin_bottom = 357.0
+[node name="Store" type="WindowDialog"]
+margin_right = 638.0
+margin_bottom = 415.0
 rect_min_size = Vector2( 150, 150 )
 window_title = "Variable Store"
 resizable = true
 script = ExtResource( 1 )
 
-[node name="Panel" type="Panel" parent="Store"]
+[node name="TabContainer" type="TabContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 7.0
@@ -23,23 +21,220 @@ margin_top = 8.0
 margin_right = -7.0
 margin_bottom = -8.0
 rect_clip_content = true
+tab_align = 0
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Store/Panel"]
+[node name="Store" type="HBoxContainer" parent="TabContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 13.0
-margin_top = 8.0
-margin_right = -13.0
-margin_bottom = -8.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
 
-[node name="Content" type="VBoxContainer" parent="Store/Panel/ScrollContainer"]
-margin_right = 388.0
+[node name="Parameters" type="VBoxContainer" parent="TabContainer/Store"]
+margin_right = 150.0
+margin_bottom = 363.0
+rect_min_size = Vector2( 150, 0 )
+
+[node name="SearchManager" type="LineEdit" parent="TabContainer/Store/Parameters"]
+unique_name_in_owner = true
+margin_right = 150.0
+margin_bottom = 24.0
+placeholder_text = "Search..."
+script = ExtResource( 2 )
+
+[node name="Heading" type="HBoxContainer" parent="TabContainer/Store/Parameters"]
+margin_top = 28.0
+margin_right = 150.0
+margin_bottom = 42.0
+
+[node name="Label" type="Label" parent="TabContainer/Store/Parameters/Heading"]
+margin_right = 32.0
+margin_bottom = 14.0
+theme_type_variation = "Header"
+text = "Tags:"
+
+[node name="HSeparator" type="HSeparator" parent="TabContainer/Store/Parameters/Heading"]
+margin_left = 36.0
+margin_right = 150.0
+margin_bottom = 14.0
 size_flags_horizontal = 3
 
-[node name="ProgressPanel" type="Panel" parent="Store"]
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Store/Parameters"]
+margin_top = 46.0
+margin_right = 150.0
+margin_bottom = 363.0
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="TagList" type="VBoxContainer" parent="TabContainer/Store/Parameters/ScrollContainer"]
+unique_name_in_owner = true
+margin_right = 64.0
+margin_bottom = 24.0
+
+[node name="CheckBox" type="CheckBox" parent="TabContainer/Store/Parameters/ScrollContainer/TagList"]
+margin_right = 64.0
+margin_bottom = 24.0
+text = "ssdas"
+
+[node name="VSeparator" type="VSeparator" parent="TabContainer/Store"]
+margin_left = 154.0
+margin_right = 158.0
+margin_bottom = 363.0
+
+[node name="ContentScrollContainer" type="ScrollContainer" parent="TabContainer/Store"]
+margin_left = 162.0
+margin_right = 616.0
+margin_bottom = 363.0
+size_flags_horizontal = 3
+
+[node name="Content" type="VBoxContainer" parent="TabContainer/Store/ContentScrollContainer"]
+unique_name_in_owner = true
+margin_right = 454.0
+size_flags_horizontal = 3
+
+[node name="Options" type="PanelContainer" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Options"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 609.0
+margin_bottom = 356.0
+
+[node name="CustomStoreLinks" type="VBoxContainer" parent="TabContainer/Options/ScrollContainer"]
+unique_name_in_owner = true
+margin_right = 602.0
+margin_bottom = 76.0
+size_flags_horizontal = 3
+script = ExtResource( 3 )
+
+[node name="Heading" type="HBoxContainer" parent="TabContainer/Options/ScrollContainer/CustomStoreLinks"]
+margin_right = 602.0
+margin_bottom = 20.0
+
+[node name="Label" type="Label" parent="TabContainer/Options/ScrollContainer/CustomStoreLinks/Heading"]
+margin_top = 3.0
+margin_right = 74.0
+margin_bottom = 17.0
+theme_type_variation = "Header"
+text = "Store Links:"
+
+[node name="HSeparator" type="HSeparator" parent="TabContainer/Options/ScrollContainer/CustomStoreLinks/Heading"]
+margin_left = 78.0
+margin_right = 406.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="Guide" type="Button" parent="TabContainer/Options/ScrollContainer/CustomStoreLinks/Heading"]
+margin_left = 410.0
+margin_right = 602.0
+margin_bottom = 20.0
+text = "Guide to making a Store File"
+
+[node name="VariableStore" type="LineEdit" parent="TabContainer/Options/ScrollContainer/CustomStoreLinks"]
+unique_name_in_owner = true
+margin_top = 24.0
+margin_right = 602.0
+margin_bottom = 48.0
+editable = false
+
+[node name="Links" type="VBoxContainer" parent="TabContainer/Options/ScrollContainer/CustomStoreLinks"]
+margin_top = 52.0
+margin_right = 602.0
+margin_bottom = 52.0
+
+[node name="NewLink" type="Button" parent="TabContainer/Options/ScrollContainer/CustomStoreLinks"]
+margin_left = 582.0
+margin_top = 56.0
+margin_right = 602.0
+margin_bottom = 76.0
+rect_min_size = Vector2( 20, 0 )
+size_flags_horizontal = 8
+text = "+"
+
+[node name="Speak Your Mind" type="Control" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Speak Your Mind"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 31.0
+margin_right = -31.0
+
+[node name="SeeAddon" type="Button" parent="TabContainer/Speak Your Mind/VBoxContainer"]
+margin_left = 175.0
+margin_right = 378.0
+margin_bottom = 20.0
+size_flags_horizontal = 4
+text = "Get this (Bug Reporter) Addon"
+
+[node name="Reporter" parent="TabContainer/Speak Your Mind/VBoxContainer" instance=ExtResource( 4 )]
+margin_top = 24.0
+margin_right = 554.0
+margin_bottom = 254.0
+
+[node name="What\'s new\?" type="PanelContainer" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/What\'s new\?"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 609.0
+margin_bottom = 356.0
+
+[node name="Heading" type="HBoxContainer" parent="TabContainer/What\'s new\?/VBoxContainer"]
+margin_right = 602.0
+margin_bottom = 14.0
+
+[node name="Label" type="Label" parent="TabContainer/What\'s new\?/VBoxContainer/Heading"]
+margin_right = 77.0
+margin_bottom = 14.0
+theme_type_variation = "Header"
+text = "What's new:"
+
+[node name="HSeparator" type="HSeparator" parent="TabContainer/What\'s new\?/VBoxContainer/Heading"]
+margin_left = 81.0
+margin_right = 602.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+
+[node name="NewThings" type="RichTextLabel" parent="TabContainer/What\'s new\?/VBoxContainer"]
+margin_top = 18.0
+margin_right = 602.0
+margin_bottom = 108.0
+text = "- Redesigned the UI (Added Tabs).
+- Tags are now available!!!
+- Easy Bug reporting is now possible
+- Exposed store link (and the ability to add your own).
+- Added a search system.
+- Clicking on thumbnails will enlarge them
+- Hovering over descriptions will show them as a tool tip"
+fit_content_height = true
+
+[node name="ProgressPanel" type="Panel" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 7.0
@@ -51,7 +246,7 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Store/ProgressPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ProgressPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 44.0
@@ -60,13 +255,13 @@ margin_right = -44.0
 margin_bottom = -13.0
 alignment = 1
 
-[node name="ProgressBar" type="ProgressBar" parent="Store/ProgressPanel/VBoxContainer"]
+[node name="ProgressBar" type="ProgressBar" parent="ProgressPanel/VBoxContainer"]
 margin_top = 130.0
 margin_right = 326.0
 margin_bottom = 150.0
 rect_min_size = Vector2( 0, 20 )
 
-[node name="Label" type="Label" parent="Store/ProgressPanel/VBoxContainer"]
+[node name="Label" type="Label" parent="ProgressPanel/VBoxContainer"]
 margin_top = 154.0
 margin_right = 326.0
 margin_bottom = 185.0
@@ -75,16 +270,18 @@ Please Wait"
 align = 1
 valign = 1
 
-[node name="UpdateTimer" type="Timer" parent="Store/ProgressPanel"]
+[node name="UpdateTimer" type="Timer" parent="ProgressPanel"]
 wait_time = 0.1
 
-[node name="HTTPRequest" type="HTTPRequest" parent="Store"]
+[node name="StoreInformationDownloader" type="HTTPRequest" parent="."]
 
-[node name="Error" type="AcceptDialog" parent="Store"]
+[node name="Error" type="AcceptDialog" parent="."]
 margin_right = 428.0
 margin_bottom = 356.0
+window_title = "Error"
+resizable = true
 
-[node name="Panel" type="Panel" parent="Store/Error"]
+[node name="Panel" type="Panel" parent="Error"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 8.0
@@ -92,7 +289,7 @@ margin_top = 8.0
 margin_right = -8.0
 margin_bottom = -36.0
 
-[node name="Content" type="VBoxContainer" parent="Store/Error/Panel"]
+[node name="Content" type="VBoxContainer" parent="Error/Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -100,27 +297,27 @@ margin_top = 4.0
 margin_right = -4.0
 margin_bottom = -4.0
 
-[node name="Label" type="Label" parent="Store/Error/Panel/Content"]
+[node name="Label" type="Label" parent="Error/Panel/Content"]
 modulate = Color( 1, 0, 0, 1 )
 margin_right = 404.0
 margin_bottom = 14.0
 text = "Unable to Get info from remote repository..."
 autowrap = true
 
-[node name="Reason" type="GridContainer" parent="Store/Error/Panel/Content"]
+[node name="Reason" type="GridContainer" parent="Error/Panel/Content"]
 margin_top = 18.0
 margin_right = 404.0
 margin_bottom = 32.0
 columns = 2
 
-[node name="Number" type="Label" parent="Store/Error/Panel/Content/Reason"]
+[node name="Number" type="Label" parent="Error/Panel/Content/Reason"]
 modulate = Color( 0.968627, 0, 1, 1 )
 margin_right = 12.0
 margin_bottom = 14.0
 size_flags_vertical = 5
 text = "1)"
 
-[node name="Label" type="Label" parent="Store/Error/Panel/Content/Reason"]
+[node name="Label" type="Label" parent="Error/Panel/Content/Reason"]
 modulate = Color( 0.968627, 1, 0, 1 )
 margin_left = 16.0
 margin_right = 404.0
@@ -129,25 +326,25 @@ size_flags_horizontal = 3
 text = "Check you internet connection."
 autowrap = true
 
-[node name="HSeparator" type="HSeparator" parent="Store/Error/Panel/Content"]
+[node name="HSeparator" type="HSeparator" parent="Error/Panel/Content"]
 margin_top = 36.0
 margin_right = 404.0
 margin_bottom = 40.0
 
-[node name="Reason2" type="GridContainer" parent="Store/Error/Panel/Content"]
+[node name="Reason2" type="GridContainer" parent="Error/Panel/Content"]
 margin_top = 44.0
 margin_right = 404.0
 margin_bottom = 155.0
 columns = 2
 
-[node name="Number" type="Label" parent="Store/Error/Panel/Content/Reason2"]
+[node name="Number" type="Label" parent="Error/Panel/Content/Reason2"]
 modulate = Color( 0.968627, 0, 1, 1 )
 margin_right = 12.0
 margin_bottom = 48.0
 size_flags_vertical = 5
 text = "2)"
 
-[node name="Label" type="Label" parent="Store/Error/Panel/Content/Reason2"]
+[node name="Label" type="Label" parent="Error/Panel/Content/Reason2"]
 margin_left = 16.0
 margin_right = 404.0
 margin_bottom = 48.0
@@ -156,36 +353,36 @@ text = "You may be using the \"Flatpak\" Version of Pixelorama which does not ha
 Run it from terminal using command:"
 autowrap = true
 
-[node name="Empty" type="Control" parent="Store/Error/Panel/Content/Reason2"]
+[node name="Empty" type="Control" parent="Error/Panel/Content/Reason2"]
 margin_top = 52.0
 margin_right = 12.0
 margin_bottom = 76.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Store/Error/Panel/Content/Reason2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Error/Panel/Content/Reason2"]
 margin_left = 16.0
 margin_top = 52.0
 margin_right = 404.0
 margin_bottom = 76.0
 
-[node name="LineEdit" type="LineEdit" parent="Store/Error/Panel/Content/Reason2/HBoxContainer"]
+[node name="LineEdit" type="LineEdit" parent="Error/Panel/Content/Reason2/HBoxContainer"]
 margin_right = 341.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 text = "sudo flatpak override com.orama_interactive.Pixelorama --share=network"
 editable = false
 
-[node name="CopyCommand" type="Button" parent="Store/Error/Panel/Content/Reason2/HBoxContainer"]
+[node name="CopyCommand" type="Button" parent="Error/Panel/Content/Reason2/HBoxContainer"]
 margin_left = 345.0
 margin_right = 388.0
 margin_bottom = 24.0
 text = "Copy"
 
-[node name="Empty2" type="Control" parent="Store/Error/Panel/Content/Reason2"]
+[node name="Empty2" type="Control" parent="Error/Panel/Content/Reason2"]
 margin_top = 80.0
 margin_right = 12.0
 margin_bottom = 111.0
 
-[node name="Label2" type="Label" parent="Store/Error/Panel/Content/Reason2"]
+[node name="Label2" type="Label" parent="Error/Panel/Content/Reason2"]
 margin_left = 16.0
 margin_top = 80.0
 margin_right = 404.0
@@ -194,25 +391,25 @@ size_flags_horizontal = 3
 text = "Or download \"Flatseal\" from your linux package manager and set permissions for Flatpak apps there"
 autowrap = true
 
-[node name="HSeparator2" type="HSeparator" parent="Store/Error/Panel/Content"]
+[node name="HSeparator2" type="HSeparator" parent="Error/Panel/Content"]
 margin_top = 159.0
 margin_right = 404.0
 margin_bottom = 163.0
 
-[node name="Reason3" type="GridContainer" parent="Store/Error/Panel/Content"]
+[node name="Reason3" type="GridContainer" parent="Error/Panel/Content"]
 margin_top = 167.0
 margin_right = 404.0
 margin_bottom = 239.0
 columns = 2
 
-[node name="Number" type="Label" parent="Store/Error/Panel/Content/Reason3"]
+[node name="Number" type="Label" parent="Error/Panel/Content/Reason3"]
 modulate = Color( 0.968627, 0, 1, 1 )
 margin_right = 12.0
 margin_bottom = 48.0
 size_flags_vertical = 5
 text = "3)"
 
-[node name="Label" type="Label" parent="Store/Error/Panel/Content/Reason3"]
+[node name="Label" type="Label" parent="Error/Panel/Content/Reason3"]
 modulate = Color( 0.376471, 1, 0.192157, 1 )
 margin_left = 16.0
 margin_right = 404.0
@@ -221,22 +418,53 @@ size_flags_horizontal = 3
 text = "Re-download VariableStore manually from the Itch.io (It's possible an update might be available that requires Manual Download)..."
 autowrap = true
 
-[node name="Empty" type="Control" parent="Store/Error/Panel/Content/Reason3"]
+[node name="Empty" type="Control" parent="Error/Panel/Content/Reason3"]
 margin_top = 52.0
 margin_right = 12.0
 margin_bottom = 72.0
 
-[node name="ManualDownload" type="Button" parent="Store/Error/Panel/Content/Reason3"]
-modulate = Color( 0.921569, 0, 1, 1 )
+[node name="ManualDownload" type="Button" parent="Error/Panel/Content/Reason3"]
 margin_left = 16.0
 margin_top = 52.0
 margin_right = 404.0
 margin_bottom = 72.0
-text = "Itch.io Page"
+text = "Manual download from Itch.io Page"
 
-[connection signal="pressed" from="." to="Store" method="_on_StoreButton_pressed"]
-[connection signal="about_to_show" from="Store" to="Store" method="_on_Store_about_to_show"]
-[connection signal="timeout" from="Store/ProgressPanel/UpdateTimer" to="Store" method="_on_UpdateTimer_timeout"]
-[connection signal="request_completed" from="Store/HTTPRequest" to="Store" method="_on_HTTPRequest_request_completed"]
-[connection signal="pressed" from="Store/Error/Panel/Content/Reason2/HBoxContainer/CopyCommand" to="Store" method="_on_CopyCommand_pressed"]
-[connection signal="pressed" from="Store/Error/Panel/Content/Reason3/ManualDownload" to="Store" method="_on_ManualDownload_pressed"]
+[node name="ErrorCustom" type="AcceptDialog" parent="."]
+margin_right = 345.0
+margin_bottom = 118.0
+window_title = "Error"
+resizable = true
+
+[node name="Content" type="VBoxContainer" parent="ErrorCustom"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -36.0
+
+[node name="Label" type="Label" parent="ErrorCustom/Content"]
+modulate = Color( 1, 0, 0, 1 )
+margin_right = 329.0
+margin_bottom = 14.0
+text = "Unable to Get info from remote repository..."
+autowrap = true
+
+[node name="FaultyLinks" type="Label" parent="ErrorCustom/Content"]
+unique_name_in_owner = true
+margin_top = 18.0
+margin_right = 329.0
+margin_bottom = 32.0
+autowrap = true
+
+[connection signal="about_to_show" from="." to="." method="_on_Store_about_to_show"]
+[connection signal="text_changed" from="TabContainer/Store/Parameters/SearchManager" to="TabContainer/Store/Parameters/SearchManager" method="_on_SearchManager_text_changed"]
+[connection signal="visibility_changed" from="TabContainer/Options" to="TabContainer/Options/ScrollContainer/CustomStoreLinks" method="_on_Options_visibility_changed"]
+[connection signal="pressed" from="TabContainer/Options/ScrollContainer/CustomStoreLinks/Heading/Guide" to="TabContainer/Options/ScrollContainer/CustomStoreLinks" method="_on_Guide_pressed"]
+[connection signal="pressed" from="TabContainer/Options/ScrollContainer/CustomStoreLinks/NewLink" to="TabContainer/Options/ScrollContainer/CustomStoreLinks" method="_on_NewLink_pressed"]
+[connection signal="pressed" from="TabContainer/Speak Your Mind/VBoxContainer/SeeAddon" to="TabContainer/Speak Your Mind/VBoxContainer/Reporter" method="_on_SeeAddon_pressed"]
+[connection signal="timeout" from="ProgressPanel/UpdateTimer" to="." method="_on_UpdateTimer_timeout"]
+[connection signal="request_completed" from="StoreInformationDownloader" to="." method="_on_StoreInformation_request_completed"]
+[connection signal="pressed" from="Error/Panel/Content/Reason2/HBoxContainer/CopyCommand" to="." method="_on_CopyCommand_pressed"]
+[connection signal="pressed" from="Error/Panel/Content/Reason3/ManualDownload" to="." method="_on_ManualDownload_pressed"]

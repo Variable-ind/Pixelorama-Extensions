@@ -29,24 +29,21 @@ const EXTENSION_NAME: String = "VariableStore"  # Should be the same as the exte
 #     The extensions that are not on the list will not be available for download
 
 
-var global :Node  #Needed for reference to "Global" node of Pixelorama (Used most of the time)
-
-var extension_container :VBoxContainer
-var store :Button
+var store_button :Button
 # This script acts as a setup for the extension
 func _enter_tree() -> void:
-	global = get_node_or_null("/root/Global")
+	var global = get_node_or_null("/root/Global")
 	if global:
-		extension_container = global.control.find_node("Extensions")
+		var extension_container = global.control.find_node("Extensions")
 		if extension_container:
-			store = load("res://src/Extensions/%s/Store/Store.tscn"  % EXTENSION_NAME).instance()
-			store.get_child(0).extension_container = extension_container
-			store.get_child(0).store_name = EXTENSION_NAME
-			store.get_child(0).store_link = STORE_LINK
-			store.text = "Open %s" % EXTENSION_NAME
+			store_button = load("res://src/Extensions/%s/Store/StoreButton.tscn"  % EXTENSION_NAME).instance()
+			store_button.get_child(0).extension_container = extension_container
+			store_button.get_child(0).store_name = EXTENSION_NAME
+			store_button.get_child(0).store_link = STORE_LINK
+			store_button.text = "Open %s" % EXTENSION_NAME
 			var parent = extension_container.get_node("HBoxContainer")
-			parent.add_child(store)
+			parent.add_child(store_button)
 
 
 func _exit_tree() -> void:
-	store.queue_free()
+	store_button.queue_free()
