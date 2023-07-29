@@ -13,6 +13,7 @@ var extension_container :VBoxContainer
 var extension_path: String  # the base path where extensions will be stored (obtained from pixelorama)
 var store_information_file :String  # contains information about extensions available for download
 var custom_links_remaining: int  # remaining custom links to be processed
+var redirects :Array
 var faulty_custom_links: Array
 
 # node references
@@ -91,9 +92,8 @@ func _on_StoreInformation_request_completed(result: int, _response_code: int, _h
 			elif typeof(info) == TYPE_STRING:  # redirect store_link detected
 				var link: String = info.strip_edges()
 				if !link.begins_with("#") and link != "":
-					custom_links_remaining += 1
-					if !info in $"%CustomStoreLinks".custom_links:
-						$"%CustomStoreLinks".custom_links.add_field(info)
+					if !info in redirects:
+						redirects.append(info)
 
 		file.close()
 		var dir := Directory.new()
@@ -186,16 +186,21 @@ func update_progress():
 func close_progress():
 	$ProgressPanel.visible = false
 	$ProgressPanel/UpdateTimer.stop()
-	custom_links_remaining -= 1
-	if custom_links_remaining >= 0:
-		var next_link = $"%CustomStoreLinks".custom_links[custom_links_remaining]
+	if redirects.size() > 0:
+		var next_link = redirects.pop_front()
 		fetch_info(next_link)
 	else:
-		if faulty_custom_links.size() > 0:  # manage custom faulty links
-			$"%FaultyLinks".text = ""
-			for link in faulty_custom_links:
-				$"%FaultyLinks".text += str(link, "\n")
-			$ErrorCustom.popup_centered()
+		# no more redirects, jump to the next store
+		custom_links_remaining -= 1
+		if custom_links_remaining >= 0:
+			var next_link = $"%CustomStoreLinks".custom_links[custom_links_remaining]
+			fetch_info(next_link)
+		else:
+			if faulty_custom_links.size() > 0:  # manage custom faulty links
+				$"%FaultyLinks".text = ""
+				for link in faulty_custom_links:
+					$"%FaultyLinks".text += str(link, "\n")
+				$ErrorCustom.popup_centered()
 
 
 

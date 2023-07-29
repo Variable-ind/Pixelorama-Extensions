@@ -72,13 +72,6 @@ scroll_horizontal_enabled = false
 
 [node name="TagList" type="VBoxContainer" parent="TabContainer/Store/Parameters/ScrollContainer"]
 unique_name_in_owner = true
-margin_right = 64.0
-margin_bottom = 24.0
-
-[node name="CheckBox" type="CheckBox" parent="TabContainer/Store/Parameters/ScrollContainer/TagList"]
-margin_right = 64.0
-margin_bottom = 24.0
-text = "ssdas"
 
 [node name="VSeparator" type="VSeparator" parent="TabContainer/Store"]
 margin_left = 154.0
@@ -187,7 +180,8 @@ text = "Get this (Bug Reporter) Addon"
 [node name="Reporter" parent="TabContainer/Speak Your Mind/VBoxContainer" instance=ExtResource( 4 )]
 margin_top = 24.0
 margin_right = 554.0
-margin_bottom = 254.0
+margin_bottom = 363.0
+size_flags_vertical = 3
 
 [node name="What\'s new\?" type="PanelContainer" parent="TabContainer"]
 visible = false
@@ -223,7 +217,7 @@ size_flags_horizontal = 3
 [node name="NewThings" type="RichTextLabel" parent="TabContainer/What\'s new\?/VBoxContainer"]
 margin_top = 18.0
 margin_right = 602.0
-margin_bottom = 108.0
+margin_bottom = 123.0
 text = "- Redesigned the UI (Added Tabs).
 - Tags are now available!!!
 - Easy Bug reporting is now possible

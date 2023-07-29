@@ -8,12 +8,13 @@ export var clear_after_send := true
 
 var _cfg : ConfigFile
 
-
-onready var _screenshot := $VBox/TextureRect
-onready var _screenshot_check = $VBox/CheckBox
-onready var _mail : LineEdit = $VBox/Mail/LineEdit
-onready var _http := $HTTPRequest
-onready var _send_button = $VBox/SendButton
+onready var _screenshot: TextureRect = $"%ScreenshotImage"
+onready var _screenshot_check: CheckBox = $"%CheckBox"
+onready var _mail: LineEdit = $"%LineEdit"
+onready var _http: HTTPRequest = $"%HTTPRequest"
+onready var _send_button: Button = $"%SendButton"
+onready var _messagetype_option_button: OptionButton = $"%OptionButton"
+onready var _message: TextEdit = $"%Message"
 
 
 func _ready():
@@ -27,8 +28,8 @@ func _on_SendButton_pressed():
 	if _http.get_http_client_status() != HTTPClient.STATUS_DISCONNECTED:
 		return
 
-	var messagetype := tr($VBox/OptionButton.text)
-	var message : String = $VBox/Message.text.replace("```", "")
+	var messagetype := tr(_messagetype_option_button.text)
+	var message : String = _message.text.replace("```", "")
 	var player_id := "playerid: %s" % _unique_user_id()
 	if _cfg.get_value("webhook", "anonymous_players", false):
 		player_id = "anonymous"
@@ -90,7 +91,9 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		hide()
 	if clear_after_send:
 		_mail.clear()
-		$VBox/Message.text = ""
+		_message.text = ""
+		_screenshot.texture = null
+		_screenshot_check.disabled = true
 
 
 func _unique_user_id() -> String:
@@ -149,3 +152,12 @@ func _array_to_form_data(array:Array)->String:
 
 func _on_SeeAddon_pressed() -> void:
 	OS.shell_open("https://github.com/ASecondGuy/BugReporter")
+
+
+func _on_Screenshot_pressed() -> void:
+	var img := get_viewport().get_texture().get_data()
+	img.flip_y()
+	var text := ImageTexture.new()
+	text.create_from_image(img)
+	_screenshot.texture = text
+	_screenshot_check.disabled = false
