@@ -27,6 +27,10 @@ The details for the extentions in the repo is as follows; <p>
   
   ![Store](https://user-images.githubusercontent.com/77773850/164515247-1e11123d-c071-42d4-9b4e-275de492dce6.png)<p>
 
+**CameraZoomer:** Lets you set precise values to "Canvas Preview"!!
+  
+  ![CameraZoomer](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/2f110f31-a8d7-459d-82c4-d745141c6da9)<p>
+
 **Godout:** Extension that uses rust language and the power of ![Godout](https://github.com/IsotoxalDev/Godout) to give you an exponentially Fast GIF Exporter and a new WEBP Exporter.
     
   ![Godout](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/13a929d6-98bf-490e-8a7c-a542effb0b3e)<p>
