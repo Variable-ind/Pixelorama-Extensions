@@ -1,0 +1,10 @@
+{
+"author": "Variabe",
+"description": "Sets zoom for preview cameras",
+"display_name": "Camera Zoomer",
+"license": "MIT",
+"name": "CameraZoomer",
+"nodes": [ "Main.tscn" ],
+"supported_api_versions": [ 3 ],
+"version": "0.1"
+}

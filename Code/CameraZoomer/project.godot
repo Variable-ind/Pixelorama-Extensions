@@ -1,0 +1,159 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Reference",
+"class": "AnimationTag",
+"language": "GDScript",
+"path": "res://src/Extensions/CameraZoomer/API/EmptyClasses/AnimationTag.gd"
+}, {
+"base": "Reference",
+"class": "BaseCel",
+"language": "GDScript",
+"path": "res://src/Extensions/CameraZoomer/API/EmptyClasses/BaseCel.gd"
+}, {
+"base": "Reference",
+"class": "BaseLayer",
+"language": "GDScript",
+"path": "res://src/Extensions/CameraZoomer/API/EmptyClasses/BaseLayer.gd"
+}, {
+"base": "VBoxContainer",
+"class": "BaseTool",
+"language": "GDScript",
+"path": "res://src/Extensions/CameraZoomer/API/EmptyClasses/BaseTool.gd"
+}, {
+"base": "BaseCel",
+"class": "Cel3D",
+"language": "GDScript",
+"path": "res://src/Extensions/CameraZoomer/API/EmptyClasses/Cel3D.gd"
+}, {
+"base": "Spatial",
+"class": "Cel3DObject",
+"language": "GDScript",
+"path": "res://src/Extensions/CameraZoomer/API/EmptyClasses/Cel3DObject.gd"
+}, {
+"base": "Reference",
+"class": "Drawer",
+"language": "GDScript",
+"path": "res://src/Extensions/CameraZoomer/API/EmptyClasses/Drawers.gd"
+}, {
+"base": "Reference",
+"class": "Frame",
+"language": "GDScript",
+"path": "res://src/Extensions/CameraZoomer/API/EmptyClasses/Frame.gd"
+}, {
+"base": "Reference",
+"class": "GIFAnimationExporter",
+"language": "GDScript",
+"path": "res://src/Extensions/CameraZoomer/API/EmptyClasses/GIFAnimationExporter.gd"
+}, {
+"base": "BaseCel",
+"class": "GroupCel",
+"language": "GDScript",
+"path": "res://src/Extensions/CameraZoomer/API/EmptyClasses/GroupCel.gd"
+}, {
+"base": "BaseLayer",
+"class": "GroupLayer",
+"language": "GDScript",
+"path": "res://src/Extensions/CameraZoomer/API/EmptyClasses/GroupLayer.gd"
+}, {
+"base": "ConfirmationDialog",
+"class": "ImageEffect",
+"language": "GDScript",
+"path": "res://src/Extensions/CameraZoomer/API/EmptyClasses/ImageEffect.gd"
+}, {
+"base": "BaseLayer",
+"class": "Layer3D",
+"language": "GDScript",
+"path": "res://src/Extensions/CameraZoomer/API/EmptyClasses/Layer3D.gd"
+}, {
+"base": "Reference",
+"class": "ObjParse",
+"language": "GDScript",
+"path": "res://src/Extensions/CameraZoomer/API/EmptyClasses/ObjParse.gd"
+}, {
+"base": "BaseCel",
+"class": "PixelCel",
+"language": "GDScript",
+"path": "res://src/Extensions/CameraZoomer/API/EmptyClasses/PixelCel.gd"
+}, {
+"base": "BaseLayer",
+"class": "PixelLayer",
+"language": "GDScript",
+"path": "res://src/Extensions/CameraZoomer/API/EmptyClasses/PixelLayer.gd"
+}, {
+"base": "Reference",
+"class": "Project",
+"language": "GDScript",
+"path": "res://src/Extensions/CameraZoomer/API/EmptyClasses/Project.gd"
+}, {
+"base": "Image",
+"class": "SelectionMap",
+"language": "GDScript",
+"path": "res://src/Extensions/CameraZoomer/API/EmptyClasses/SelectionMap.gd"
+}, {
+"base": "BaseTool",
+"class": "SelectionTool",
+"language": "GDScript",
+"path": "res://src/Extensions/CameraZoomer/API/EmptyClasses/SelectionTool.gd"
+}, {
+"base": "Reference",
+"class": "ShaderImageEffect",
+"language": "GDScript",
+"path": "res://src/Extensions/CameraZoomer/API/EmptyClasses/ShaderImageEffect.gd"
+}, {
+"base": "Reference",
+"class": "Tiles",
+"language": "GDScript",
+"path": "res://src/Extensions/CameraZoomer/API/EmptyClasses/Tiles.gd"
+} ]
+_global_script_class_icons={
+"AnimationTag": "",
+"BaseCel": "",
+"BaseLayer": "",
+"BaseTool": "",
+"Cel3D": "",
+"Cel3DObject": "",
+"Drawer": "",
+"Frame": "",
+"GIFAnimationExporter": "",
+"GroupCel": "",
+"GroupLayer": "",
+"ImageEffect": "",
+"Layer3D": "",
+"ObjParse": "",
+"PixelCel": "",
+"PixelLayer": "",
+"Project": "",
+"SelectionMap": "",
+"SelectionTool": "",
+"ShaderImageEffect": "",
+"Tiles": ""
+}
+
+[application]
+
+config/name="CameraZoomer"
+config/description="A pixelorama Extention (The "
+" field are not related to extention system so they can be anything)run/main_scene"="res://src/Extensions/CameraZoomer/Main.tscn"
+
+[autoload]
+
+ExtensionsApi="*res://src/Extensions/CameraZoomer/API/ExtensionsApi.gd"
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
