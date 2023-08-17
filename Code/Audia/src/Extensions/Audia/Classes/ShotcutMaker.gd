@@ -5,7 +5,7 @@ var dir_path: String
 
 const STARTING = ("""<?xml version="1.0" standalone="no"?>
 <mlt LC_NUMERIC="C" version="7.18.0" title="Shotcut version 23.07.29" producer="playlist0">
-	<profile description="PAL 4:3 DV or DVD" width="1920" height="1080" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="16" display_aspect_den="9" frame_rate_num="60" frame_rate_den="1" colorspace="709"/>""")
+	<profile description="Pixelorama Export" width="<X>" height="<Y>" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="16" display_aspect_den="9" frame_rate_num="60" frame_rate_den="1" colorspace="709"/>""")
 
 var producers := []
 
@@ -19,8 +19,8 @@ const END = ("""</playlist>
 </mlt>""")
 
 
-func compile():
-	var final = STARTING
+func compile(size: Vector2):
+	var final = STARTING.replace("<X>", str(size.x)).replace("<Y>", str(size.y))
 	for data in producers:
 		final += data
 	final += MIDDLE
