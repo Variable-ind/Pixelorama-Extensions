@@ -4,6 +4,7 @@ extends PanelContainer
 # references from pixelorama
 var timer: Timer
 var play_forward: BaseButton
+var undo_redo: UndoRedo
 
 var audio_tags: Dictionary
 var stream_player = preload("res://src/Extensions/Audia/Elements/AudioManager/AudioController.tscn")
@@ -22,6 +23,7 @@ func _ready() -> void:
 	# Get references to widely used nodes
 	timer = ExtensionsApi.general.get_global().animation_timer
 	play_forward = ExtensionsApi.general.get_global().play_forward
+	undo_redo = ExtensionsApi.project.get_current_project().undo_redo
 	# signal connections
 	ExtensionsApi.signals.connect_project_changed(self, "update_list")
 	ExtensionsApi.signals.connect_cel_changed(self, "check_sanity")
@@ -39,6 +41,7 @@ func _exit_tree() -> void:
 	timer.disconnect("timeout", self, "manage_next_frame_music")
 	play_forward.disconnect("toggled", self, "start_setup")
 	get_tree().disconnect("files_dropped", self, "add_audios")
+	undo_redo.disconnect("version_changed", self, "check_tag_update")
 
 
 func add_audios(file_paths: PoolStringArray, _screen: int):
@@ -67,6 +70,12 @@ func add_audios(file_paths: PoolStringArray, _screen: int):
 
 func update_list():
 	var project: Project = ExtensionsApi.project.get_current_project()
+	# the project has changed, so change the undo_redo as well
+	if undo_redo:
+		undo_redo.disconnect("version_changed", self, "check_tag_update")
+	undo_redo = project.undo_redo
+	undo_redo.connect("version_changed", self, "check_tag_update")
+
 	var data = project.get_meta("Music", [])
 	for old_entry in list.get_children():
 		old_entry.queue_free()
@@ -74,6 +83,18 @@ func update_list():
 		var entry = preload("res://src/Extensions/Audia/Elements/MusicButton/MusicEntry.tscn").instance()
 		list.add_child(entry)
 		entry.deserialize(entry_data)
+
+
+func check_tag_update():
+	if undo_redo.get_current_action_name() == "Modify Frame Tag":
+		var tag_container = ExtensionsApi.general.get_global().tag_container
+		# clear old indicators
+		for child in tag_container.get_children():
+			var indicator = child.get_node_or_null("AudioIndicator")
+			if indicator:
+				indicator.queue_free()
+		for child in list.get_children():
+			child.refresh_self()
 
 
 func start_setup(pressed: bool):
