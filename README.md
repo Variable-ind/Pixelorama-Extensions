@@ -27,6 +27,10 @@ The details for the extentions in the repo is as follows; <p>
   
   ![Store](https://user-images.githubusercontent.com/77773850/164515247-1e11123d-c071-42d4-9b4e-275de492dce6.png)<p>
 
+**Audia:** Lets you treat tags as audio clips!!
+
+  ![Audia](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/3f80c3be-4dd8-41cd-ad99-f04291064333)
+
 **CameraZoomer:** Lets you set precise values to "Canvas Preview"!!
   
   ![CameraZoomer](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/2f110f31-a8d7-459d-82c4-d745141c6da9)<p>
