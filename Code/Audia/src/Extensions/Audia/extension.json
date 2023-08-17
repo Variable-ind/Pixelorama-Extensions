@@ -1,0 +1,10 @@
+{
+"author": "Variable",
+"description": "Implements Audio reference",
+"display_name": "Audia",
+"license": "MIT",
+"name": "Audia",
+"nodes": [ "Main.tscn" ],
+"supported_api_versions": [ 3 ],
+"version": "0.1"
+}
