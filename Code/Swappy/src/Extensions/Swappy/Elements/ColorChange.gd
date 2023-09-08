@@ -31,14 +31,12 @@ func replace_cel_image(project, frame, layer) -> void:
 
 	# Set the options for the ColorReplace shaded (shader copied from pixelorama's bucket shader)
 	var selection: Image
-	var selection_tex := ImageTexture.new()
 	if project.has_selection:
 		selection = project.selection_map
 	else:
-		selection = Image.new()
-		selection.create(project.size.x, project.size.y, false, Image.FORMAT_RGBA8)
+		selection = Image.create(project.size.x, project.size.y, false, Image.FORMAT_RGBA8)
 		selection.fill(Color(1, 1, 1, 1))
-	selection_tex.create_from_image(selection)
+	var selection_tex := ImageTexture.create_from_image(selection)
 	var pattern_tex := ImageTexture.new()
 
 	var params := {
@@ -55,14 +53,14 @@ func replace_cel_image(project, frame, layer) -> void:
 	}
 	# Now finally apply the colorreplace shader to the image
 	var gen = ExtensionsApi.general.get_shader_image_effect()
-	var color_replace_shader = preload("res://src/Extensions/Swappy/shader/ColorReplace.shader")
+	var color_replace_shader = preload("res://src/Extensions/Swappy/shader/ColorReplace.gdshader")
 	gen.generate_image(image, color_replace_shader, params, project.size)
 	if image.data["data"] != old_image.data["data"]:  # if something's been changed
 		ExtensionsApi.project.set_pixelcel_image(image, frame, layer)
 
 
 func _on_OpenOptions_pressed() -> void:
-	$"%Options".popup(Rect2($Dialogs.rect_global_position, $"%Options".rect_size))
+	$"%Options".popup(Rect2($Dialogs.global_position, $"%Options".size))
 
 
 func _on_OptionButton_item_selected(index: int) -> void:

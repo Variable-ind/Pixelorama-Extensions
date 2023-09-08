@@ -6,12 +6,13 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
+config_version=5
 
 [application]
 
 config/name="Swappy"
 config/description="A pixelorama Extention (The \"Name\" and \"Description\" field are not related to extention system so they can be anything)"
+config/features=PackedStringArray("4.1")
 
 [autoload]
 
@@ -25,4 +26,3 @@ common/enable_pause_aware_picking=true
 
 quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
-vram_compression/import_etc2=false

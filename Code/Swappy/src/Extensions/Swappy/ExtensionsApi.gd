@@ -23,7 +23,7 @@ class GeneralAPI:
 	# Version And Config
 	func get_pixelorama_version() -> String:
 		# Returns the version of pixelorama
-		return "0.11.0"
+		return "1.0"
 
 	func get_config_file() -> ConfigFile:
 		# config_file contains all the settings (Brushes, sizes, preferences, etc...)
@@ -138,7 +138,7 @@ class ToolAPI:
 		scene: PackedScene,
 		extra_hint := "",
 		extra_shortucts := [],
-		layer_types: PoolIntArray = []
+		layer_types: PackedInt32Array = []
 	) -> void:
 		# Adds a tool with the above detail
 		pass
