@@ -58,6 +58,10 @@ The details for the extentions in the repo is as follows; <p>
   
   ![ThemePack](https://user-images.githubusercontent.com/77773850/183347028-96df2ad6-550d-4052-84d3-39f23829ce05.png)<p>
 
+**TimeTracking:** saves project statistics in the .pxo file (access with Help>Project Statistics)
+  
+  ![TimeTracking](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/5c2aec0e-944e-4e91-90ee-8fe1803cf83d)<p>
+
 **UVHelperPack:** Set of tools to help you create UVmap. Inspired from https://www.youtube.com/watch?v=HsOKwUwL1bE
 
   ![Screenshot from 2022-07-05 20-39-44](https://user-images.githubusercontent.com/77773850/177538973-995f7f5a-92df-4799-b7c5-6d688bf282b6.png)<p>
