@@ -1,0 +1,10 @@
+{
+"author": "Variable",
+"description": "tracks how much time has the project been active for",
+"display_name": "Time Tracking",
+"license": "MIT",
+"name": "TimeTracking",
+"nodes": [ "Main.tscn" ],
+"supported_api_versions": [ 3 ],
+"version": "0.1"
+}
