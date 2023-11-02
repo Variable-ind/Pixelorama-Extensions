@@ -1,0 +1,10 @@
+{
+"author": "Variable",
+"description": "alows diamond shapes",
+"display_name": "Diamond Tool",
+"license": "MIT",
+"name": "DiamondTool",
+"nodes": [ "Main.tscn" ],
+"supported_api_versions": [ 3 ],
+"version": "0.1"
+}
