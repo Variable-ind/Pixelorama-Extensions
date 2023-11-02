@@ -35,6 +35,10 @@ The details for the extentions in the repo is as follows; <p>
   
   ![CameraZoomer](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/2f110f31-a8d7-459d-82c4-d745141c6da9)<p>
 
+**DiamondTool:** Add a diamond shape tool to you arsenal of tools. Useful for isometric drawings.
+    
+  ![DiamondTool](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/6288644d-57a7-416b-9a62-755b596d1a30)<p>
+
 **Godout:** Extension that uses rust language and the power of ![Godout](https://github.com/IsotoxalDev/Godout) to give you an exponentially Fast GIF Exporter and a new WEBP Exporter.
     
   ![Godout](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/13a929d6-98bf-490e-8a7c-a542effb0b3e)<p>
