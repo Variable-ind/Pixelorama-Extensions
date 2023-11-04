@@ -35,6 +35,10 @@ The details for the extentions in the repo is as follows; <p>
   
   ![CameraZoomer](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/2f110f31-a8d7-459d-82c4-d745141c6da9)<p>
 
+**ColorPickerDocker:** Gives you access to a docked color picker and a new quick palette!!
+  
+  ![ColorPickerDocker](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/3bf5ca2e-1cf5-4cef-8a3f-aed9bfb2bbd6)<p>
+
 **DiamondTool:** Add a diamond shape tool to you arsenal of tools. Useful for isometric drawings.
     
   ![DiamondTool](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/6288644d-57a7-416b-9a62-755b596d1a30)<p>
