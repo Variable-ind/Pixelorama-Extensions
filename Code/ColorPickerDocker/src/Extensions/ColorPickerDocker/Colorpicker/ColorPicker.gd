@@ -20,6 +20,10 @@ func _ready() -> void:
 	_color_pickers = ExtensionsApi.general.get_global().control.find_node("Color Pickers")
 	change_tool_slot(Mode.LEFT)
 
+	# in case extension starts with pixelorama
+	yield(get_tree(), "idle_frame")
+	color = _tool_color_slot.color
+
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
