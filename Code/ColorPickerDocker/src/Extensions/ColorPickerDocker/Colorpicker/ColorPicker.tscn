@@ -3,10 +3,8 @@
 [ext_resource path="res://src/Extensions/ColorPickerDocker/Colorpicker/ColorPicker.gd" type="Script" id=1]
 
 [node name="ColorPicker" type="ColorPicker"]
-margin_left = 4.0
-margin_top = 4.0
-margin_right = 307.0
-margin_bottom = 494.0
+margin_right = 303.0
+margin_bottom = 490.0
 size_flags_vertical = 3
 script = ExtResource( 1 )
 
