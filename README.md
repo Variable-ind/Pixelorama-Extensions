@@ -19,9 +19,9 @@ https://user-images.githubusercontent.com/77773850/155725975-94756087-daf8-452c-
 
 ## Extensions and their Details:
 The details for the extentions in the repo is as follows; <p>
-**Example:** Extension guide and creator
+**ExtensionCreator:** Extension guide and creator
 
-  ![Example](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/952f6032-dadb-4bab-998c-f90c236f7fe8)<p>
+  ![ExtensionCreator](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/952f6032-dadb-4bab-998c-f90c236f7fe8)<p>
 
 **VariableStore:** A Store to download pixelorama extensions!!
 
