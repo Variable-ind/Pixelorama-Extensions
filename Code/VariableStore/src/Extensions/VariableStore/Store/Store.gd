@@ -72,7 +72,9 @@ func _on_StoreInformation_request_completed(result: int, _response_code: int, _h
 		var store_update_available := false
 
 		while not file.eof_reached():
-			var info = str2var(file.get_line())
+			var info = file.get_line()
+			if !info.strip_edges().begins_with("#"):
+				info = str2var(info)
 			# THIS IS THE SYSTEM TO CHECK FOR STORE UPDATES
 			if typeof(info) == TYPE_REAL:
 				# check version
