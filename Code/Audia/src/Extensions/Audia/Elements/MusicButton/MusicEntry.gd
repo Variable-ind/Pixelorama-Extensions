@@ -5,9 +5,15 @@ var _path: String
 onready var path_label: Label = $"%Path"
 onready var identifier_label: LineEdit = $"%Identifier"
 
+var old_p_size := Vector2.ZERO
 var Audioloader = load("res://src/Extensions/Audia/Elements/3rd party/GDScriptAudioImport.gd")
 var reference_data: Dictionary  # only used to see which is which
 var audio_stream: AudioStream
+
+
+func _ready() -> void:
+	ExtensionsApi.signals.connect_cel_changed(self, "check_if_timeline_refreshed")
+
 
 func serialize() -> Dictionary:
 	var data = {
@@ -63,13 +69,20 @@ func _update_tag(old_name: String ,full_refresh := true):
 				indicator.queue_free()
 		if full_refresh:
 			if child.tag.name == identifier_label.text:
-				print("=======================================================")
-				print(child.tag.name)
 				var indicator = ColorRect.new()
 				indicator.rect_min_size.y = 5
 				indicator.name = "AudioIndicator"
 				indicator.color = child.tag.color
 				child.add_child(indicator)
+
+
+func check_if_timeline_refreshed():
+	var project = ExtensionsApi.project.get_current_project()
+	var new_size = Vector2(project.frames.size(), project.layers.size())
+	if old_p_size != new_size:
+		old_p_size = new_size
+		yield(get_tree(), "idle_frame")
+		refresh_self()
 
 
 func refresh_self():
