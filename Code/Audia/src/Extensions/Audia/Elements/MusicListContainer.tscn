@@ -44,17 +44,41 @@ text = "Music Library:"
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 margin_top = 109.0
 margin_right = 225.0
-margin_bottom = 332.0
+margin_bottom = 308.0
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="List" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 margin_right = 225.0
-margin_bottom = 223.0
+margin_bottom = 199.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="Load" type="Button" parent="VBoxContainer"]
+margin_top = 312.0
+margin_right = 225.0
+margin_bottom = 332.0
+text = "Open Audios"
+
+[node name="Popups" type="Control" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 232.0
+margin_bottom = 339.0
+mouse_filter = 2
+
+[node name="FileDialog" type="FileDialog" parent="Popups"]
+margin_right = 419.0
+margin_bottom = 366.0
+rect_min_size = Vector2( 170, 59.5 )
+window_title = "Open Audios"
+mode = 1
+access = 2
+filters = PoolStringArray( "*.mp3", "*.ogg", "*.wav" )
 
 [node name="Audios" type="Node" parent="."]
 
 [connection signal="item_selected" from="VBoxContainer/OptionButton" to="." method="_on_OptionButton_item_selected"]
+[connection signal="pressed" from="VBoxContainer/Load" to="." method="_on_Load_pressed"]
+[connection signal="files_selected" from="Popups/FileDialog" to="." method="add_audios"]
