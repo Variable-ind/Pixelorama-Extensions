@@ -27,7 +27,7 @@ The details for the extentions in the repo is as follows; <p>
 
   ![Store](https://user-images.githubusercontent.com/77773850/164515247-1e11123d-c071-42d4-9b4e-275de492dce6.png)<p>
 
-**Audia:** Lets you treat tags as audio clips!!
+**Audia:** Lets you treat tags as audio clips!! (Open it through Window Menu > Audia)
 
   ![Audia](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/3f80c3be-4dd8-41cd-ad99-f04291064333)
 
@@ -52,7 +52,7 @@ The details for the extentions in the repo is as follows; <p>
   ![Key](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/dcedd193-1c37-4311-8dc2-ee0b65de8cec)<p>
 
 **LineArt:** Adds a lineart shader from https://godotshaders.com/shader/line-art
-  ![Key](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/d725a4b7-627b-4a1d-8553-f743070893ef)<p>
+  ![LineArt](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/d725a4b7-627b-4a1d-8553-f743070893ef)<p>
 
 **Swappy:** Helper Extension for Re-Coloring. Replaces all instances of a Color with a New Color.
   

@@ -1,21 +1,31 @@
 extends Node
 
 # some references to nodes that will be created later
-var panel: PanelContainer
+var music_list_container: WindowDialog
 var exporter_id: int
+var menu_id: int
 
 # This script acts as a setup for the extension
 func _enter_tree() -> void:
 	# add a test panel as a tab  (this is an example) the tab is located at the same
 	# place as the (Tools tab) by default
-	panel = preload("res://src/Extensions/Audia/Elements/MusicListContainer.tscn").instance()
-	ExtensionsApi.panel.add_node_as_tab(panel)
+	music_list_container = preload(
+		"res://src/Extensions/Audia/Elements/MusicListContainer.tscn"
+	).instance()
+
+#	ExtensionsApi.panel.add_node_as_tab(music_list_container)
+	ExtensionsApi.dialog.get_dialogs_parent_node().add_child(music_list_container)
+	menu_id = ExtensionsApi.menu.add_menu_item(ExtensionsApi.menu.WINDOW, "Audia", self)
 
 	var info := {
 		"extension": ".png",
 		"description": "Shotcut"
 	}
 	exporter_id = ExtensionsApi.exports.add_export_option(info, self, 0, false)
+
+
+func menu_item_clicked():
+	music_list_container.popup_centered()
 
 
 func override_export(data: Dictionary):
@@ -29,7 +39,7 @@ func override_export(data: Dictionary):
 
 	# obtaining audios used in project
 	var audio_tags := {}
-	for child in panel.list.get_children():
+	for child in music_list_container.list.get_children():
 		var dict = child.serialize()
 		var tag = dict["identifier"]
 		var path = dict["path"]
@@ -71,5 +81,7 @@ func override_export(data: Dictionary):
 
 func _exit_tree() -> void:  # Extension is being uninstalled or disabled
 	# remember to remove things that you added using this extension
-	ExtensionsApi.panel.remove_node_from_tab(panel)
+#	ExtensionsApi.panel.remove_node_from_tab(music_list_container)
+	ExtensionsApi.menu.remove_menu_item(ExtensionsApi.menu.WINDOW, menu_id)
+	music_list_container.queue_free()
 	ExtensionsApi.exports.remove_export_option(exporter_id)

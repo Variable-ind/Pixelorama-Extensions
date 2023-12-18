@@ -6,5 +6,5 @@
 "name": "Audia",
 "nodes": [ "Main.tscn" ],
 "supported_api_versions": [ 3 ],
-"version": "0.12"
+"version": "0.13"
 }
