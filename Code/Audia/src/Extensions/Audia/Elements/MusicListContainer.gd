@@ -1,4 +1,4 @@
-extends WindowDialog
+extends PanelContainer
 
 
 # references from pixelorama

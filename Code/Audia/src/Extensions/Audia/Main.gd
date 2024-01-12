@@ -1,7 +1,7 @@
 extends Node
 
 # some references to nodes that will be created later
-var music_list_container: WindowDialog
+var music_list_container_dialog: WindowDialog
 var exporter_id: int
 var menu_id: int
 
@@ -9,12 +9,12 @@ var menu_id: int
 func _enter_tree() -> void:
 	# add a test panel as a tab  (this is an example) the tab is located at the same
 	# place as the (Tools tab) by default
-	music_list_container = preload(
+	music_list_container_dialog = preload(
 		"res://src/Extensions/Audia/Elements/MusicListContainer.tscn"
 	).instance()
 
-#	ExtensionsApi.panel.add_node_as_tab(music_list_container)
-	ExtensionsApi.dialog.get_dialogs_parent_node().add_child(music_list_container)
+#	ExtensionsApi.panel.add_node_as_tab(music_list_container_dialog)
+	ExtensionsApi.dialog.get_dialogs_parent_node().add_child(music_list_container_dialog)
 	menu_id = ExtensionsApi.menu.add_menu_item(ExtensionsApi.menu.WINDOW, "Audia", self)
 
 	var info := {
@@ -25,7 +25,7 @@ func _enter_tree() -> void:
 
 
 func menu_item_clicked():
-	music_list_container.popup_centered()
+	music_list_container_dialog.popup_centered()
 
 
 func override_export(data: Dictionary):
@@ -39,7 +39,7 @@ func override_export(data: Dictionary):
 
 	# obtaining audios used in project
 	var audio_tags := {}
-	for child in music_list_container.list.get_children():
+	for child in music_list_container_dialog.get_node("MusicListContainer").list.get_children():
 		var dict = child.serialize()
 		var tag = dict["identifier"]
 		var path = dict["path"]
@@ -81,7 +81,7 @@ func override_export(data: Dictionary):
 
 func _exit_tree() -> void:  # Extension is being uninstalled or disabled
 	# remember to remove things that you added using this extension
-#	ExtensionsApi.panel.remove_node_from_tab(music_list_container)
+#	ExtensionsApi.panel.remove_node_from_tab(music_list_container_dialog)
 	ExtensionsApi.menu.remove_menu_item(ExtensionsApi.menu.WINDOW, menu_id)
-	music_list_container.queue_free()
+	music_list_container_dialog.queue_free()
 	ExtensionsApi.exports.remove_export_option(exporter_id)
