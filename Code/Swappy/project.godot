@@ -12,11 +12,7 @@ config_version=5
 
 config/name="Swappy"
 config/description="A pixelorama Extention (The \"Name\" and \"Description\" field are not related to extention system so they can be anything)"
-config/features=PackedStringArray("4.1")
-
-[autoload]
-
-ExtensionsApi="*res://src/Extensions/Swappy/ExtensionsApi.gd"
+config/features=PackedStringArray("4.2")
 
 [physics]
 

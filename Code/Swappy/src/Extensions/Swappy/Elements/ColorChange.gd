@@ -4,9 +4,10 @@ var colorpicker: PanelContainer
 var selected_cels_only = false
 var similarity = 100
 
+var api: Node
 
 func replace() -> void:
-	var project = ExtensionsApi.project.get_current_project()
+	var project = api.project.current_project
 	# Go through each of the frames and layers of the project
 	var selected_cels: Array = project.selected_cels.duplicate(true)
 	var current_frame = project.current_frame
@@ -25,7 +26,7 @@ func replace() -> void:
 func replace_cel_image(project, frame, layer) -> void:
 	# Set the new (image).
 	# Note: The old_image should not be used directly because it messed with undo/redo
-	var old_image = ExtensionsApi.project.get_cel_at(project, frame, layer).get_image()
+	var old_image = api.project.get_cel_at(project, frame, layer).get_image()
 	var image = Image.new()
 	image.copy_from(old_image)
 
@@ -41,8 +42,8 @@ func replace_cel_image(project, frame, layer) -> void:
 
 	var params := {
 		"size": project.size,
-		"old_color": colorpicker.left_picker.color,  # Here is your old color
-		"new_color": colorpicker.right_picker.color,  # Here is your new color
+		"old_color": colorpicker.left_color_rect.color,  # Here is your old color
+		"new_color": colorpicker.right_color_rect.color,  # Here is your new color
 		"similarity_percent": similarity,
 		"selection": selection_tex,
 		"pattern": pattern_tex,
@@ -52,11 +53,11 @@ func replace_cel_image(project, frame, layer) -> void:
 		"has_pattern": false
 	}
 	# Now finally apply the colorreplace shader to the image
-	var gen = ExtensionsApi.general.get_shader_image_effect()
+	var gen = api.general.get_new_shader_image_effect()
 	var color_replace_shader = preload("res://src/Extensions/Swappy/shader/ColorReplace.gdshader")
 	gen.generate_image(image, color_replace_shader, params, project.size)
 	if image.data["data"] != old_image.data["data"]:  # if something's been changed
-		ExtensionsApi.project.set_pixelcel_image(image, frame, layer)
+		api.project.set_pixelcel_image(image, frame, layer)
 
 
 func _on_OpenOptions_pressed() -> void:
