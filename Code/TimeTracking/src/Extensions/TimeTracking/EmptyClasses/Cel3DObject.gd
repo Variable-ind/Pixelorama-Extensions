@@ -1,3 +1,3 @@
 class_name Cel3DObject
-extends Spatial
+extends Node3D
 
