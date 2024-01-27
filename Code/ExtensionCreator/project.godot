@@ -1,0 +1,159 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Reference",
+"class": "AnimationTag",
+"language": "GDScript",
+"path": "res://src/Extensions/ExtensionCreator/elements/APIs/3/Files/Classes/AnimationTag.gd"
+}, {
+"base": "Reference",
+"class": "BaseCel",
+"language": "GDScript",
+"path": "res://src/Extensions/ExtensionCreator/elements/APIs/3/Files/Classes/BaseCel.gd"
+}, {
+"base": "Reference",
+"class": "BaseLayer",
+"language": "GDScript",
+"path": "res://src/Extensions/ExtensionCreator/elements/APIs/3/Files/Classes/BaseLayer.gd"
+}, {
+"base": "Reference",
+"class": "BaseTool",
+"language": "GDScript",
+"path": "res://src/Extensions/ExtensionCreator/elements/APIs/3/Files/Classes/Tools/BaseTool.gd"
+}, {
+"base": "Reference",
+"class": "Cel3D",
+"language": "GDScript",
+"path": "res://src/Extensions/ExtensionCreator/elements/APIs/3/Files/Classes/Cel3D.gd"
+}, {
+"base": "Reference",
+"class": "Cel3DObject",
+"language": "GDScript",
+"path": "res://src/Extensions/ExtensionCreator/elements/APIs/3/Files/Classes/Cel3DObject.gd"
+}, {
+"base": "Reference",
+"class": "Drawer",
+"language": "GDScript",
+"path": "res://src/Extensions/ExtensionCreator/elements/APIs/3/Files/Classes/Drawers.gd"
+}, {
+"base": "Reference",
+"class": "Frame",
+"language": "GDScript",
+"path": "res://src/Extensions/ExtensionCreator/elements/APIs/3/Files/Classes/Frame.gd"
+}, {
+"base": "Reference",
+"class": "GIFAnimationExporter",
+"language": "GDScript",
+"path": "res://src/Extensions/ExtensionCreator/elements/APIs/3/Files/Classes/AnimationExporters/GIFAnimationExporter.gd"
+}, {
+"base": "Reference",
+"class": "GroupCel",
+"language": "GDScript",
+"path": "res://src/Extensions/ExtensionCreator/elements/APIs/3/Files/Classes/GroupCel.gd"
+}, {
+"base": "Reference",
+"class": "GroupLayer",
+"language": "GDScript",
+"path": "res://src/Extensions/ExtensionCreator/elements/APIs/3/Files/Classes/GroupLayer.gd"
+}, {
+"base": "Reference",
+"class": "ImageEffect",
+"language": "GDScript",
+"path": "res://src/Extensions/ExtensionCreator/elements/APIs/3/Files/Classes/ImageEffect.gd"
+}, {
+"base": "Reference",
+"class": "Layer3D",
+"language": "GDScript",
+"path": "res://src/Extensions/ExtensionCreator/elements/APIs/3/Files/Classes/Layer3D.gd"
+}, {
+"base": "Reference",
+"class": "ObjParse",
+"language": "GDScript",
+"path": "res://src/Extensions/ExtensionCreator/elements/APIs/3/Files/Classes/ObjParse.gd"
+}, {
+"base": "Reference",
+"class": "PixelCel",
+"language": "GDScript",
+"path": "res://src/Extensions/ExtensionCreator/elements/APIs/3/Files/Classes/PixelCel.gd"
+}, {
+"base": "Reference",
+"class": "PixelLayer",
+"language": "GDScript",
+"path": "res://src/Extensions/ExtensionCreator/elements/APIs/3/Files/Classes/PixelLayer.gd"
+}, {
+"base": "Reference",
+"class": "Project",
+"language": "GDScript",
+"path": "res://src/Extensions/ExtensionCreator/elements/APIs/3/Files/Classes/Project.gd"
+}, {
+"base": "Reference",
+"class": "SelectionMap",
+"language": "GDScript",
+"path": "res://src/Extensions/ExtensionCreator/elements/APIs/3/Files/Classes/SelectionMap.gd"
+}, {
+"base": "Reference",
+"class": "SelectionTool",
+"language": "GDScript",
+"path": "res://src/Extensions/ExtensionCreator/elements/APIs/3/Files/Classes/Tools/SelectionTools/SelectionTool.gd"
+}, {
+"base": "Reference",
+"class": "ShaderImageEffect",
+"language": "GDScript",
+"path": "res://src/Extensions/ExtensionCreator/elements/APIs/3/Files/Classes/ShaderImageEffect.gd"
+}, {
+"base": "Reference",
+"class": "Tiles",
+"language": "GDScript",
+"path": "res://src/Extensions/ExtensionCreator/elements/APIs/3/Files/Classes/Tiles.gd"
+} ]
+_global_script_class_icons={
+"AnimationTag": "",
+"BaseCel": "",
+"BaseLayer": "",
+"BaseTool": "",
+"Cel3D": "",
+"Cel3DObject": "",
+"Drawer": "",
+"Frame": "",
+"GIFAnimationExporter": "",
+"GroupCel": "",
+"GroupLayer": "",
+"ImageEffect": "",
+"Layer3D": "",
+"ObjParse": "",
+"PixelCel": "",
+"PixelLayer": "",
+"Project": "",
+"SelectionMap": "",
+"SelectionTool": "",
+"ShaderImageEffect": "",
+"Tiles": ""
+}
+
+[application]
+
+config/name="ExtensionCreator"
+config/description="This extension is used to make extensions"
+run/main_scene="res://src/Extensions/ExtensionCreator/Main.tscn"
+
+[autoload]
+
+ExtensionsApi="*res://src/Extensions/ExtensionCreator/elements/APIs/3/Files/ExtensionsApi.gd"
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+vram_compression/import_etc=true
+vram_compression/import_etc2=false

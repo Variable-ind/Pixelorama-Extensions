@@ -1,0 +1,10 @@
+{
+"author": "Variable",
+"description": "Adds a docked colorpicker",
+"display_name": "Colorpicker Docker",
+"license": "MIT",
+"name": "ColorPickerDocker",
+"nodes": [ "Main.tscn" ],
+"supported_api_versions": [ 3 ],
+"version": "0.11"
+}

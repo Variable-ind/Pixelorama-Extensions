@@ -65,6 +65,8 @@ margin_right = 270.0
 margin_bottom = 147.0
 rect_min_size = Vector2( 0, 100 )
 size_flags_vertical = 3
+text = "Put suggestions here...
+Speak to your heart's content..."
 wrap_enabled = true
 
 [node name="Mail" type="HBoxContainer" parent="VBox/Splitter/Message"]

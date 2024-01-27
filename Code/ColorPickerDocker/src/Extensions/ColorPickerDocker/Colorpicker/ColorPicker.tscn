@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/Extensions/ColorPickerDocker/Colorpicker/ColorPicker.gd" type="Script" id=1]
+
+[node name="ColorPicker" type="ColorPicker"]
+margin_right = 303.0
+margin_bottom = 490.0
+size_flags_vertical = 3
+script = ExtResource( 1 )
+
+[connection signal="preset_added" from="." to="." method="_on_ColorPicker_preset_added"]
+[connection signal="preset_removed" from="." to="." method="_on_ColorPicker_preset_removed"]

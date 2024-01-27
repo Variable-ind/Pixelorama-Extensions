@@ -44,7 +44,7 @@ func _exit_tree() -> void:
 	undo_redo.disconnect("version_changed", self, "check_tag_update")
 
 
-func add_audios(file_paths: PoolStringArray, _screen: int):
+func add_audios(file_paths: PoolStringArray, _screen: int = 0):
 	var project: Project = ExtensionsApi.project.get_current_project()
 	var data: Array = project.get_meta("Music", [])
 	var valid_exts = ["mp3", "ogg", "wav"]
@@ -179,3 +179,7 @@ func setup_audio_drivers():
 			to_select = i
 	if to_select:
 		option_button.select(to_select)
+
+
+func _on_Load_pressed() -> void:
+	$Popups/FileDialog.popup_centered()

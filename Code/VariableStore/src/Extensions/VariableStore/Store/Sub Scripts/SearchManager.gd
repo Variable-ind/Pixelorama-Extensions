@@ -20,12 +20,13 @@ func tag_text_search() -> void:
 
 
 func text_search(text: String) -> Array:
+	text = text.to_lower()
 	var result = []
 	for entry in $"%Content".get_children():
 		var visibility = true
 		if text != "":
-			var extension_name = entry.ext_name.text
-			var extension_description = entry.ext_discription.text
+			var extension_name = entry.ext_name.text.to_lower()
+			var extension_description = entry.ext_discription.text.to_lower()
 			if not text in extension_name:
 				if not text in extension_description:
 					visibility = false

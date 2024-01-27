@@ -155,7 +155,7 @@ rect_min_size = Vector2( 20, 0 )
 size_flags_horizontal = 8
 text = "+"
 
-[node name="Speak Your Mind" type="Control" parent="TabContainer"]
+[node name="Suggestions for Pixelorama" type="Control" parent="TabContainer"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -164,20 +164,20 @@ margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Speak Your Mind"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Suggestions for Pixelorama"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 31.0
 margin_right = -31.0
 
-[node name="SeeAddon" type="Button" parent="TabContainer/Speak Your Mind/VBoxContainer"]
+[node name="SeeAddon" type="Button" parent="TabContainer/Suggestions for Pixelorama/VBoxContainer"]
 margin_left = 175.0
 margin_right = 378.0
 margin_bottom = 20.0
 size_flags_horizontal = 4
 text = "Get this (Bug Reporter) Addon"
 
-[node name="Reporter" parent="TabContainer/Speak Your Mind/VBoxContainer" instance=ExtResource( 4 )]
+[node name="Reporter" parent="TabContainer/Suggestions for Pixelorama/VBoxContainer" instance=ExtResource( 4 )]
 margin_top = 24.0
 margin_right = 554.0
 margin_bottom = 363.0
@@ -217,8 +217,13 @@ size_flags_horizontal = 3
 [node name="NewThings" type="RichTextLabel" parent="TabContainer/What\'s new\?/VBoxContainer"]
 margin_top = 18.0
 margin_right = 602.0
-margin_bottom = 123.0
-text = "- Redesigned the UI (Added Tabs).
+margin_bottom = 198.0
+text = "Version 0.61
+- Renamed the \"Speak your Mind\" tab to \"Suggestions for Pixelorama\".
+- Improved search system a little (it is no longer case sensitive).
+
+Version 0.6
+- Redesigned the UI (Added Tabs).
 - Tags are now available!!!
 - Easy Bug reporting is now possible
 - Exposed store link (and the ability to add your own).
@@ -457,7 +462,7 @@ autowrap = true
 [connection signal="visibility_changed" from="TabContainer/Options" to="TabContainer/Options/ScrollContainer/CustomStoreLinks" method="_on_Options_visibility_changed"]
 [connection signal="pressed" from="TabContainer/Options/ScrollContainer/CustomStoreLinks/Heading/Guide" to="TabContainer/Options/ScrollContainer/CustomStoreLinks" method="_on_Guide_pressed"]
 [connection signal="pressed" from="TabContainer/Options/ScrollContainer/CustomStoreLinks/NewLink" to="TabContainer/Options/ScrollContainer/CustomStoreLinks" method="_on_NewLink_pressed"]
-[connection signal="pressed" from="TabContainer/Speak Your Mind/VBoxContainer/SeeAddon" to="TabContainer/Speak Your Mind/VBoxContainer/Reporter" method="_on_SeeAddon_pressed"]
+[connection signal="pressed" from="TabContainer/Suggestions for Pixelorama/VBoxContainer/SeeAddon" to="TabContainer/Suggestions for Pixelorama/VBoxContainer/Reporter" method="_on_SeeAddon_pressed"]
 [connection signal="timeout" from="ProgressPanel/UpdateTimer" to="." method="_on_UpdateTimer_timeout"]
 [connection signal="request_completed" from="StoreInformationDownloader" to="." method="_on_StoreInformation_request_completed"]
 [connection signal="pressed" from="Error/Panel/Content/Reason2/HBoxContainer/CopyCommand" to="." method="_on_CopyCommand_pressed"]

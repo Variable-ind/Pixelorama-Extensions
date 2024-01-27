@@ -1,0 +1,11 @@
+{
+    "name": "ExtensionCreator",
+    "display_name": "Extension guide and creator",
+    "description": "Serves as a guide and extension creator",
+    "author": "Variable",
+    "version": "0.81",
+    "license": "MIT",
+    "nodes": [
+        "Main.tscn"
+    ]
+}

@@ -19,21 +19,29 @@ https://user-images.githubusercontent.com/77773850/155725975-94756087-daf8-452c-
 
 ## Extensions and their Details:
 The details for the extentions in the repo is as follows; <p>
-**Example:** A Template/Tutorial Extension
+**ExtensionCreator:** Extension guide and creator
 
-  ![Example](https://user-images.githubusercontent.com/77773850/164516526-227551c5-ca39-4491-b03a-76353f4879a5.png)<p>
+  ![ExtensionCreator](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/952f6032-dadb-4bab-998c-f90c236f7fe8)<p>
 
 **VariableStore:** A Store to download pixelorama extensions!!
-  
+
   ![Store](https://user-images.githubusercontent.com/77773850/164515247-1e11123d-c071-42d4-9b4e-275de492dce6.png)<p>
 
-**Audia:** Lets you treat tags as audio clips!!
+**Audia:** Lets you treat tags as audio clips!! (Open it through Window Menu > Audia)
 
   ![Audia](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/3f80c3be-4dd8-41cd-ad99-f04291064333)
 
 **CameraZoomer:** Lets you set precise values to "Canvas Preview"!!
   
   ![CameraZoomer](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/2f110f31-a8d7-459d-82c4-d745141c6da9)<p>
+
+**ColorPickerDocker:** Gives you access to a docked color picker and a new quick palette!!
+  
+  ![ColorPickerDocker](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/3bf5ca2e-1cf5-4cef-8a3f-aed9bfb2bbd6)<p>
+
+**DiamondTool:** Add a diamond shape tool to you arsenal of tools. Useful for isometric drawings.
+    
+  ![DiamondTool](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/6288644d-57a7-416b-9a62-755b596d1a30)<p>
 
 **Godout:** Extension that uses rust language and the power of ![Godout](https://github.com/IsotoxalDev/Godout) to give you an exponentially Fast GIF Exporter and a new WEBP Exporter.
     
@@ -44,7 +52,7 @@ The details for the extentions in the repo is as follows; <p>
   ![Key](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/dcedd193-1c37-4311-8dc2-ee0b65de8cec)<p>
 
 **LineArt:** Adds a lineart shader from https://godotshaders.com/shader/line-art
-  ![Key](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/d725a4b7-627b-4a1d-8553-f743070893ef)<p>
+  ![LineArt](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/d725a4b7-627b-4a1d-8553-f743070893ef)<p>
 
 **Swappy:** Helper Extension for Re-Coloring. Replaces all instances of a Color with a New Color.
   
@@ -57,6 +65,10 @@ The details for the extentions in the repo is as follows; <p>
 **ThemePack:** New PixelSprite and Neon (silver, blue, pink) themes
   
   ![ThemePack](https://user-images.githubusercontent.com/77773850/183347028-96df2ad6-550d-4052-84d3-39f23829ce05.png)<p>
+
+**TimeTracking:** saves project statistics in the .pxo file (access with Help>Project Statistics)
+  
+  ![TimeTracking](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/5c2aec0e-944e-4e91-90ee-8fe1803cf83d)<p>
 
 **UVHelperPack:** Set of tools to help you create UVmap. Inspired from https://www.youtube.com/watch?v=HsOKwUwL1bE
 
