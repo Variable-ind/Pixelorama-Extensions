@@ -1,6 +1,6 @@
 # gdlint: ignore=max-public-methods
 class_name Project
-extends Reference
+extends RefCounted
 # A class for project properties.
 
 var name := ""
