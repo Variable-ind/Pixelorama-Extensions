@@ -1,72 +1,72 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://dr0spu6ytv2wf"]
 
-[ext_resource path="res://src/Extensions/KeyDisplay/KeyDisplay.gd" type="Script" id=1]
-[ext_resource path="res://src/Extensions/KeyDisplay/Assets/Mouse.png" type="Texture" id=2]
-[ext_resource path="res://src/Extensions/KeyDisplay/Assets/Middle.png" type="Texture" id=3]
-[ext_resource path="res://src/Extensions/KeyDisplay/Assets/Side.png" type="Texture" id=4]
+[ext_resource type="Script" path="res://src/Extensions/KeyDisplay/KeyDisplay.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://blyayfl628air" path="res://src/Extensions/KeyDisplay/Assets/Mouse.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://124g4cq10f60" path="res://src/Extensions/KeyDisplay/Assets/Middle.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://b0moc7jrtwu8n" path="res://src/Extensions/KeyDisplay/Assets/Side.png" id="4"]
 
 [node name="KeyDisplay" type="GridContainer"]
-margin_right = 54.0
-margin_bottom = 71.0
+offset_right = 54.0
+offset_bottom = 71.0
 columns = 2
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="History" type="Control" parent="."]
+layout_mode = 2
 
 [node name="HistoryContainer" type="VBoxContainer" parent="History"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 0
 
 [node name="Spacer" type="ColorRect" parent="."]
-margin_left = 4.0
-margin_right = 54.0
+layout_mode = 2
 
 [node name="Keys" type="Control" parent="."]
-margin_top = 4.0
-margin_bottom = 71.0
+layout_mode = 2
 
 [node name="KeyContainer" type="HBoxContainer" parent="Keys"]
 unique_name_in_owner = true
-anchor_right = 1.0
-anchor_bottom = 1.0
+layout_mode = 2
+offset_bottom = 67.0
 grow_horizontal = 0
 alignment = 2
 
 [node name="Mouse" type="TextureRect" parent="."]
-modulate = Color( 1, 1, 1, 0.784314 )
-margin_left = 4.0
-margin_top = 4.0
-margin_right = 54.0
-margin_bottom = 71.0
-rect_min_size = Vector2( 50, 67 )
-texture = ExtResource( 2 )
-expand = true
-stretch_mode = 6
+modulate = Color(1, 1, 1, 0.784314)
+custom_minimum_size = Vector2(50, 67)
+layout_mode = 2
+texture = ExtResource("2")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Middle" type="TextureRect" parent="Mouse"]
 visible = false
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 3 )
-expand = true
-stretch_mode = 6
+texture = ExtResource("3")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Left" type="TextureRect" parent="Mouse"]
 visible = false
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 4 )
-expand = true
-stretch_mode = 6
+texture = ExtResource("4")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Right" type="TextureRect" parent="Mouse"]
 visible = false
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 4 )
-expand = true
-stretch_mode = 6
+texture = ExtResource("4")
+expand_mode = 1
+stretch_mode = 5
 flip_h = true

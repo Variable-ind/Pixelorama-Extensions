@@ -6,17 +6,13 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
+config_version=5
 
 [application]
 
 config/name="KeyDisplay"
 config/description="A pixelorama Extention (The \"Name\" and \"Description\" field are not related to extention system so they can be anything)"
-run/main_scene="res://src/Extensions/KeyDisplay/Main.tscn"
-
-[autoload]
-
-ExtensionsApi="*res://src/Extensions/KeyDisplay/ExtensionsApi.gd"
+config/features=PackedStringArray("4.2")
 
 [physics]
 
@@ -26,4 +22,3 @@ common/enable_pause_aware_picking=true
 
 quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
-vram_compression/import_etc2=false
