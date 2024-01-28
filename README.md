@@ -1,7 +1,5 @@
 # Pixelorama Extensions Collection
 
-### Use the [VariableStore](https://variable-interactive.itch.io/pixelorama-extensions) extension to download these extensions from within Pixelorama!!!
-
 This contains some of the [Pixelorama](https://orama-interactive.itch.io/pixelorama) extensions i made along with their code <p>
 The codes for each extension is stored in a folder of the same name inside the **Code** folder
 
