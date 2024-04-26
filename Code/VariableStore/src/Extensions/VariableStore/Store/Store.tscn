@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/Extensions/VariableStore/Store/Store.gd" type="Script" id=1]
 [ext_resource path="res://src/Extensions/VariableStore/Store/Sub Scripts/SearchManager.gd" type="Script" id=2]
 [ext_resource path="res://src/Extensions/VariableStore/Store/Sub Scripts/CustomStoreLinks.gd" type="Script" id=3]
-[ext_resource path="res://addons/BugReporter/reporter.tscn" type="PackedScene" id=4]
 
 [node name="Store" type="WindowDialog"]
 margin_right = 638.0
@@ -155,34 +154,6 @@ rect_min_size = Vector2( 20, 0 )
 size_flags_horizontal = 8
 text = "+"
 
-[node name="Suggestions for Pixelorama" type="Control" parent="TabContainer"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Suggestions for Pixelorama"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 31.0
-margin_right = -31.0
-
-[node name="SeeAddon" type="Button" parent="TabContainer/Suggestions for Pixelorama/VBoxContainer"]
-margin_left = 175.0
-margin_right = 378.0
-margin_bottom = 20.0
-size_flags_horizontal = 4
-text = "Get this (Bug Reporter) Addon"
-
-[node name="Reporter" parent="TabContainer/Suggestions for Pixelorama/VBoxContainer" instance=ExtResource( 4 )]
-margin_top = 24.0
-margin_right = 554.0
-margin_bottom = 363.0
-size_flags_vertical = 3
-
 [node name="What\'s new\?" type="PanelContainer" parent="TabContainer"]
 visible = false
 anchor_right = 1.0
@@ -218,7 +189,11 @@ size_flags_horizontal = 3
 margin_top = 18.0
 margin_right = 602.0
 margin_bottom = 198.0
-text = "Version 0.61
+text = "Version 0.62
+- Removed \"Suggestions for Pixelorama\".
+Note: The Variablestore has been added to pixelorama core (in the upcoming version 1.0), so this store will become redundant after Pixelorama 1.0. thanks for ysing this store for so long, you have my gratitude.
+
+Version 0.61
 - Renamed the \"Speak your Mind\" tab to \"Suggestions for Pixelorama\".
 - Improved search system a little (it is no longer case sensitive).
 
@@ -462,7 +437,6 @@ autowrap = true
 [connection signal="visibility_changed" from="TabContainer/Options" to="TabContainer/Options/ScrollContainer/CustomStoreLinks" method="_on_Options_visibility_changed"]
 [connection signal="pressed" from="TabContainer/Options/ScrollContainer/CustomStoreLinks/Heading/Guide" to="TabContainer/Options/ScrollContainer/CustomStoreLinks" method="_on_Guide_pressed"]
 [connection signal="pressed" from="TabContainer/Options/ScrollContainer/CustomStoreLinks/NewLink" to="TabContainer/Options/ScrollContainer/CustomStoreLinks" method="_on_NewLink_pressed"]
-[connection signal="pressed" from="TabContainer/Suggestions for Pixelorama/VBoxContainer/SeeAddon" to="TabContainer/Suggestions for Pixelorama/VBoxContainer/Reporter" method="_on_SeeAddon_pressed"]
 [connection signal="timeout" from="ProgressPanel/UpdateTimer" to="." method="_on_UpdateTimer_timeout"]
 [connection signal="request_completed" from="StoreInformationDownloader" to="." method="_on_StoreInformation_request_completed"]
 [connection signal="pressed" from="Error/Panel/Content/Reason2/HBoxContainer/CopyCommand" to="." method="_on_CopyCommand_pressed"]
