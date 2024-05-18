@@ -1,0 +1,22 @@
+extends Node
+
+# NOTE: (ExtensionsApi) and get_node_or_null("/root/ExtensionsApi") mean the same thing.
+
+# This script acts as a setup for the extension
+func _enter_tree() -> void:
+	ExtensionsApi.tools.add_tool(
+		"CurveTool",
+		"Curve Tool",
+		"curvetool",
+		preload("res://src/Extensions/CurveTool/Tool/CurveTool.tscn"),
+		"",
+		[],
+		[0]
+	)
+	pass
+
+
+func _exit_tree() -> void:  # Extension is being uninstalled or disabled
+	ExtensionsApi.tools.remove_tool("CurveTool")
+	# remember to remove things that you added using this extension
+	pass

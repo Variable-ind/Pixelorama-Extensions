@@ -1,0 +1,268 @@
+extends "res://src/Tools/Draw.gd"
+
+## The points in this arrat follow the pattern [ point 1, bezier 1, bezier 2, point 2, ... ]
+## points are actual points on the lines, while bezier is a point that determines
+## the shape of the curve.
+var control_points := []
+var _drawing := false
+var _editing_bezier := false  ## needed to determine when to show gizmo
+var _thickness := 1
+var _detail := 10
+var global = ExtensionsApi.general.get_global()
+
+
+func _init() -> void:
+	_drawer.color_op = Drawer.ColorOp.new()
+	update_indicator()
+
+
+func update_brush() -> void:
+	pass
+
+
+func _on_Thickness_value_changed(value: int) -> void:
+	_thickness = value
+
+	update_indicator()
+	update_config()
+	save_config()
+
+
+func _on_detail_value_changed(value: float) -> void:
+	_detail = int(value)
+
+	update_indicator()
+	update_config()
+	save_config()
+
+
+func update_indicator() -> void:
+	var bitmap := BitMap.new()
+	bitmap.create(Vector2.ONE * _thickness)
+	bitmap.set_bit_rect(Rect2(Vector2.ZERO, Vector2.ONE * _thickness), true)
+	_indicator = bitmap
+	_polylines = _create_polylines(_indicator)
+
+
+func get_config() -> Dictionary:
+	var config := .get_config()
+	config["thickness"] = _thickness
+	config["detail"] = _detail
+	return config
+
+
+func set_config(config: Dictionary) -> void:
+	.set_config(config)
+	_thickness = config.get("thickness", _thickness)
+	_detail = config.get("detail", _detail)
+
+
+func update_config() -> void:
+	.update_config()
+	$ThicknessSlider.value = _thickness
+	$DetailSlider.value = _detail
+	$DetailSlider.prefix = "Detail:"
+
+
+func _get_shape_points(_size: Vector2) -> Array:
+	return []
+
+
+func _get_shape_points_filled(_size: Vector2) -> Array:
+	return []
+
+
+func _input(event: InputEvent) -> void:
+	if _drawing:
+		if event is InputEventMouseButton:
+			if event.doubleclick and event.button_index == tool_slot.button:
+				$DoubleClickTimer.start()
+				_draw_shape()
+		else:
+			if event.is_action_pressed("change_tool_mode"):
+				if control_points.size() > 3:  ## atleast one curve should be present
+					control_points.resize(control_points.size() - 3)
+					control_points[-1] = control_points[-2]  ## reset the last bezier point
+
+
+func draw_start(pos: Vector2) -> void:
+	if !$DoubleClickTimer.is_stopped():
+		return
+	pos = snap_position(pos)
+	.draw_start(pos)
+	if Input.is_action_pressed("shape_displace"):
+		_picking_color = true
+		_pick_color(pos)
+		return
+	global.canvas.selection.transform_content_confirm()
+	update_mask()
+	if !_drawing:
+		_drawing = true
+	control_points.append_array([pos, pos, pos])  # Append first start point and 2 bezier points
+
+
+func draw_move(pos: Vector2) -> void:
+	pos = snap_position(pos)
+	.draw_move(pos)
+	if _picking_color:  # Still return even if we released Alt
+		if Input.is_action_pressed("shape_displace"):
+			_pick_color(pos)
+		return
+	if _drawing:
+		_editing_bezier = true
+		control_points[-1] = pos
+		## The two bezier points should be equal unless one is changed by next added curve
+		control_points[-2] = control_points[-1]
+		if control_points.size() > 3:
+			var offset: Vector2 = (
+				Vector2(control_points[-3] - control_points[-2]).rotated(deg2rad(180)).floor()
+			)
+			control_points[-4] = control_points[-3] - offset
+
+
+func draw_end(pos: Vector2) -> void:
+	_editing_bezier = false
+	.draw_end(pos)
+
+
+func draw_preview() -> void:
+	if _drawing:
+		var canvas: Node2D = global.canvas.previews
+		var pos := canvas.position
+		var canvas_scale := canvas.scale
+		if global.mirror_view:
+			# This fixes the "Preview" in mirror mode
+			pos.x = pos.x + global.current_project.size.x
+			canvas_scale.x = -1
+
+		var points := _bezier(_detail)
+		canvas.draw_set_transform(pos, canvas.rotation, canvas_scale)
+		var indicator := _fill_bitmap_with_points(points, global.current_project.size)
+
+		for line in _create_polylines(indicator):
+			canvas.draw_polyline(PoolVector2Array(line), Color.black)
+
+		canvas.draw_set_transform(canvas.position, canvas.rotation, canvas.scale)
+
+		if _editing_bezier:
+			var start = control_points[0]  # well.. i have to start the line somewhere
+			var end = control_points[-2]
+			if control_points.size() > 3:
+				start = control_points[-4]
+			if global.mirror_view:
+				# This does mirror fixes to the gizmo
+				start.x = global.current_project.size.x - start.x - 1
+				end.x = global.current_project.size.x - end.x - 1
+
+			canvas.draw_line(start, end, Color.black)
+			var circle_radius: Vector2 = 5 * global.camera.zoom
+			draw_empty_circle(canvas, start, circle_radius, Color.black)
+			draw_empty_circle(canvas, end, circle_radius, Color.black)
+
+
+func _draw_shape() -> void:
+	var points := _bezier(_detail)
+	prepare_undo("Draw Shape")
+	for point in points:
+		# Reset drawer every time because pixel perfect sometimes breaks the tool
+		_drawer.reset()
+		# Draw each point offsetted based on the shape's thickness
+		draw_tool(point)
+	control_points.clear()
+	_drawing = false
+
+	commit_undo()
+
+
+func _bezier(detail: int = 50) -> Array:
+	var res: Array = []
+	for i in range(0, control_points.size(), 3):
+		var points = control_points.slice(i, i + 3)
+		if points.size() < 4:
+			for _missing in range(points.size(), 4):
+				var last_pixel: Vector2 = global.canvas.current_pixel.floor()
+				if global.mirror_view:
+					# This fixes mirroring of the last point of the curve
+					last_pixel.x = (global.current_project.size.x - 1) - last_pixel.x
+				points.append(last_pixel)
+		for d in range(0, detail + 1):
+			var t = d / float(detail)
+			var point: Vector2 = (
+				(pow(1 - t, 3) * points[0])
+				+ (3 * pow(1 - t, 2) * t * points[1])
+				+ (3 * (1 - t) * pow(t, 2) * points[2])
+				+ (pow(t, 3) * points[3])
+			).floor()
+			if res.empty():
+				res.append(point)
+			else:
+				res.append_array(_fill_gap(res[-1], point))
+	return res
+
+
+func _fill_gap(point_a: Vector2, point_b: Vector2) -> PoolVector2Array:
+	var array := []
+	var dx := int(abs(point_b.x - point_a.x))
+	var dy := int(-abs(point_b.y - point_a.y))
+	var err := dx + dy
+	var e2 := err << 1
+	var sx = 1 if point_a.x < point_b.x else -1
+	var sy = 1 if point_a.y < point_b.y else -1
+	var x = point_a.x
+	var y = point_a.y
+
+	var start := point_a - Vector2.ONE * (_thickness >> 1)
+	var end := start + Vector2.ONE * _thickness
+	for yy in range(start.y, end.y):
+		for xx in range(start.x, end.x):
+			array.append(Vector2(xx, yy))
+
+	while !(x == point_b.x && y == point_b.y):
+		e2 = err << 1
+		if e2 >= dy:
+			err += dy
+			x += sx
+		if e2 <= dx:
+			err += dx
+			y += sy
+
+		var pos := Vector2(x, y)
+		start = pos - Vector2.ONE * (_thickness >> 1)
+		end = start + Vector2.ONE * _thickness
+		for yy in range(start.y, end.y):
+			for xx in range(start.x, end.x):
+				array.append(Vector2(xx, yy))
+
+	return PoolVector2Array(array)
+
+
+func _fill_bitmap_with_points(points: Array, bitmap_size: Vector2) -> BitMap:
+	var bitmap := BitMap.new()
+	bitmap.create(bitmap_size)
+
+	for point in points:
+		if point.x < 0 or point.y < 0 or point.x >= bitmap_size.x or point.y >= bitmap_size.y:
+			continue
+		bitmap.set_bit(point, 1)
+
+	return bitmap
+
+
+# Thanks to
+# https://www.reddit.com/r/godot/comments/3ktq39/drawing_empty_circles_and_curves/cv0f4eo/
+func draw_empty_circle(
+	canvas: CanvasItem, circle_center: Vector2, circle_radius: Vector2, color: Color
+) -> void:
+	var draw_counter := 1
+	var line_origin := Vector2()
+	var line_end := Vector2()
+	line_origin = circle_radius + circle_center
+
+	while draw_counter <= 360:
+		line_end = circle_radius.rotated(deg2rad(draw_counter)) + circle_center
+		canvas.draw_line(line_origin, line_end, color)
+		draw_counter += 1
+		line_origin = line_end
+
+	line_end = circle_radius.rotated(deg2rad(360)) + circle_center
+	canvas.draw_line(line_origin, line_end, color)

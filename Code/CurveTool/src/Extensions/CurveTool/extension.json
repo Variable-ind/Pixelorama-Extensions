@@ -1,0 +1,10 @@
+{
+"author": "Variable",
+"description": "Curve Tool",
+"display_name": "Curve Tool",
+"license": "MIT",
+"name": "CurveTool",
+"nodes": [ "Main.tscn" ],
+"supported_api_versions": [ 3 ],
+"version": "0.1"
+}
