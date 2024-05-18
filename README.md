@@ -39,6 +39,10 @@ The details for the extentions in the repo is as follows; <p>
   
   ![ColorPickerDocker](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/3bf5ca2e-1cf5-4cef-8a3f-aed9bfb2bbd6)<p>
 
+**CropTool:** Tool for making Bezier Curves!!!
+  
+  ![CropTool](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/5bb47668-56cf-4fb8-aa51-0b7ca14459e5)<p>
+
 **DiamondTool:** Add a diamond shape tool to you arsenal of tools. Useful for isometric drawings.
     
   ![DiamondTool](https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/6288644d-57a7-416b-9a62-755b596d1a30)<p>
