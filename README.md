@@ -1,10 +1,11 @@
 # Pixelorama Extensions Collection
-### Note
-The extension for pixelorama 0.11.x are in the 3.x branch.
 
 This contains some of the [Pixelorama](https://orama-interactive.itch.io/pixelorama) extensions i made along with their code <p>
 
 The codes for each extension is stored in a folder of the same name inside the **Code** folder
+
+### Note
+The extension for pixelorama 0.11.x are in the 3.x branch.
 
 ## Download Instructions:
 
