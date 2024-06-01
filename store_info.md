@@ -1,6 +1,8 @@
 // This file is for online use.<br>
 // My extensions for Pixelorama 1.x
 
+[["name", "ExtensionCreator"], ["version", 1.0], ["description", "Used as a guide by beginers for creating extensions (Open from help menu)"], ["tags", "Tutorial"], ["thumbnail", "https://user-images.githubusercontent.com/77773850/283574411-952f6032-dadb-4bab-998c-f90c236f7fe8.png"], ["download_link", "https://github.com/Variable-ind/Pixelorama-Extensions/raw/4.0/Extensions/ExtensionCreator.pck"]]
+
 [["name", "Audia"], ["version", 1.0], ["description", "Allows to play a specific audio on a specific tag. (Open it through Window Menu > Audia) How to use: Change the driver from (Dummy) to something other driver. Drag and drop the audio to place it in (Music Library). Write any tag's name in (Play on Tag) field. You will hear sound whenever that tag is played"], ["tags", "UI", "Exporter", "Audio"], ["thumbnail", "https://user-images.githubusercontent.com/77773850/261408793-3f80c3be-4dd8-41cd-ad99-f04291064333.png"], ["download_link", "https://github.com/Variable-ind/Pixelorama-Extensions/raw/4.0/Extensions/Audia.pck"]]
 
 [["name", "KeyDisplay"], ["version", 1.0], ["description", "Handy extension to display shortcuts for use in videos etc.)"], ["tags", "UI"], ["thumbnail", "https://github.com/Variable-ind/Pixelorama-Extensions/assets/77773850/dcedd193-1c37-4311-8dc2-ee0b65de8cec"], ["download_link", "https://github.com/Variable-ind/Pixelorama-Extensions/raw/4.0/Extensions/KeyDisplay.pck"]]
