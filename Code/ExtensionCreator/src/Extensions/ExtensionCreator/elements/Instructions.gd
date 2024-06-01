@@ -1,8 +1,4 @@
-extends WindowDialog
-
-
-func _on_Creator_pressed() -> void:
-	self.popup_centered()
+extends Window
 
 
 func _on_Create_pressed() -> void:
@@ -10,4 +6,8 @@ func _on_Create_pressed() -> void:
 
 
 func _on_Copy_pressed() -> void:
-	OS.clipboard = $PanelContainer/Content/VBoxContainer/HBoxContainer/Code.text
+	DisplayServer.clipboard_set($PanelContainer/Content/VBoxContainer/HBoxContainer/Code.text)
+
+
+func _on_close_requested() -> void:
+	hide()

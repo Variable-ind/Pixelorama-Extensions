@@ -1,3 +1,3 @@
 class_name ShaderImageEffect
-extends Reference
+extends RefCounted
 # Helper class to generate image effects using shaders

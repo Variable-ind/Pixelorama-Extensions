@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Audia"
-config/description="A pixelorama Extention (The "
+config/description="A pixelorama Extention (The \"Name\" and \"Description\" field are not related to extention system so they can be anything)"
 config/features=PackedStringArray("4.2")
 " field are not related to extention system so they can be anything)run/main_scene"="res://src/Extensions/Audia/Main.tscn"
 

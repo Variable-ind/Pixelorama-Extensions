@@ -2,35 +2,34 @@ extends Node
 
 
 static func make(save_path: String, extension_name: String, template := MainGd.ADD_PANNEL) -> int:
-	var extension_path = save_path.plus_file("src/Extensions/").plus_file(extension_name)
+	var extension_path = save_path.path_join("src/Extensions/").path_join(extension_name)
 	var project = ProjectGodot.new()
-	var project_path = save_path.plus_file("project.godot")
+	var project_path = save_path.path_join("project.godot")
 	var export_cfg = ExportCfg.new()
-	var export_cfg_path = save_path.plus_file("export_presets.cfg")
+	var export_cfg_path = save_path.path_join("export_presets.cfg")
 	var main_tscn = MainTscn.new()
-	var main_tscn_path = extension_path.plus_file("Main.tscn")
+	var main_tscn_path = extension_path.path_join("Main.tscn")
 	var main_gd = MainGd.new()
-	var main_gd_path = extension_path.plus_file("Main.gd")
+	var main_gd_path = extension_path.path_join("Main.gd")
 	var api = Api.new()
-	var api_path = extension_path.plus_file("API")
+	var api_path = extension_path.path_join("API")
 
 	# Step 1 : make extension files first
-	var file = File.new()
-	file.open(project_path, File.WRITE)
+	var file = FileAccess.open(project_path, FileAccess.WRITE)
 	file.store_string(project.make(extension_name))
 	file.close()
-	file.open(export_cfg_path, File.WRITE)
+	file = FileAccess.open(export_cfg_path, FileAccess.WRITE)
 	file.store_string(export_cfg.make(extension_name))
 	file.close()
-	file.open(main_tscn_path, File.WRITE)
+	file = FileAccess.open(main_tscn_path, FileAccess.WRITE)
 	file.store_string(main_tscn.make(extension_name))
 	file.close()
-	file.open(main_gd_path, File.WRITE)
+	file = FileAccess.open(main_gd_path, FileAccess.WRITE)
 	file.store_string(main_gd.make(template))
 	file.close()
 	if template == MainGd.ADD_THEME:
 		var theme: Theme = ExtensionsApi.theme.get_theme()
-		ResourceSaver.save(save_path.plus_file("Theme.tres"), theme)
+		ResourceSaver.save(theme, save_path.path_join("Theme.tres"))
 
 #	# Step 2 : Now make Api Files
 	var err = api.generate_api_files(api_path)
@@ -50,27 +49,23 @@ class ProjectGodot:
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
+config_version=5
 
 [application]
 
 config/name="Example"
 config/description="A pixelorama Extention (The \"Name\" and \"Description\" field are not related to extention system so they can be anything)"
+config/features=PackedStringArray("4.2", "GL Compatibility")
 run/main_scene="res://src/Extensions/Example/Main.tscn"
 
 [autoload]
 
 ExtensionsApi="*res://src/Extensions/Example/API/ExtensionsApi.gd"
 
-[physics]
-
-common/enable_pause_aware_picking=true
-
 [rendering]
 
-quality/driver/driver_name="GLES2"
-vram_compression/import_etc=true
-vram_compression/import_etc2=false
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
 """
 )
 
@@ -112,7 +107,7 @@ codesign/timestamp=true
 codesign/timestamp_server_url=""
 codesign/digest_algorithm=1
 codesign/description=""
-codesign/custom_options=PoolStringArray(  )
+codesign/custom_options=PackedStringArray(  )
 application/icon=""
 application/file_version=""
 application/product_version=""
@@ -131,7 +126,7 @@ application/trademarks=""
 class MainTscn:
 	var text = (
 """
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3]
 
 [ext_resource path="res://src/Extensions/%s/Main.gd" type="Script" id=1]
 
@@ -146,7 +141,7 @@ script = ExtResource( 1 )
 
 class MainGd:
 	enum { BARE_MINIMUM, ADD_PANNEL, ADD_MENU_ITEM, ADD_THEME, PROJECT_MANIPULATOR, NEW_EXPORTER }
-	var base_path = "res://src/Extensions/ExtensionCreator/elements/APIs/3"
+	var base_path = "res://src/Extensions/ExtensionCreator/elements/APIs/4"
 	var scripts := {
 		BARE_MINIMUM : "Files/Templates/bare_minimum.gd",
 		ADD_PANNEL : "Files/Templates/add_pannel.gd",
@@ -156,20 +151,20 @@ class MainGd:
 		NEW_EXPORTER: "Files/Templates/add_exporter.gd",
 	}
 
-	func make(idx: int):
+	func make(idx: int) -> String:
 		var script_path = scripts[BARE_MINIMUM]
 		if idx in scripts.keys():
 			script_path = scripts[idx]
-		var file := File.new()
-		# warning-ignore:return_value_discarded
-		file.open(base_path.plus_file(script_path), File.READ)
-		var text = file.get_as_text()
-		file.close()
-		return text
+		var file := FileAccess.open(base_path.path_join(script_path), FileAccess.READ)
+		if FileAccess.get_open_error() == OK:
+			var text = file.get_as_text()
+			file.close()
+			return text
+		return ""
 
 
 class Api:
-	var base_path = "res://src/Extensions/ExtensionCreator/elements/APIs/3"
+	var base_path = "res://src/Extensions/ExtensionCreator/elements/APIs/4"
 	var scripts := {
 		"ExtensionsApi.gd" : "Files/ExtensionsApi.gd",
 		"EmptyClasses/GIFAnimationExporter.gd": "Files/Classes/AnimationExporters/GIFAnimationExporter.gd",
@@ -195,23 +190,21 @@ class Api:
 		"EmptyClasses/Tiles.gd": "Files/Classes/Tiles.gd",
 	}
 	func generate_api_files(api_path: String) -> int:
-		var dir := Directory.new()
-		var err = dir.make_dir_recursive(api_path)
-		if err != OK:
-			return err
-		err = dir.make_dir_recursive(api_path.plus_file("EmptyClasses"))
-		if err != OK:
-			return err
-		var file := File.new()
+		DirAccess.make_dir_recursive_absolute(api_path)
+		if DirAccess.get_open_error() != OK:
+			return DirAccess.get_open_error()
+		DirAccess.make_dir_recursive_absolute(api_path.path_join("EmptyClasses"))
+		if DirAccess.get_open_error() != OK:
+			return DirAccess.get_open_error()
 		for script in scripts.keys():
-			err = file.open(base_path.plus_file(scripts[script]), File.READ)
-			if err != OK:
-				return err
+			var file = FileAccess.open(base_path.path_join(scripts[script]), FileAccess.READ)
+			if FileAccess.get_open_error() != OK:
+				return FileAccess.get_open_error()
 			var text = file.get_as_text()
 			file.close()
-			err = file.open(api_path.plus_file(script), File.WRITE)
-			if err != OK:
-				return err
+			file = FileAccess.open(api_path.path_join(script), FileAccess.WRITE)
+			if FileAccess.get_open_error() != OK:
+				return FileAccess.get_open_error()
 			file.store_string(text)
 			file.close()
 		return 0

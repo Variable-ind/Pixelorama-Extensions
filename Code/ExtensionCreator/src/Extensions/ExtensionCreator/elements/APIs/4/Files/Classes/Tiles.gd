@@ -1,5 +1,5 @@
 class_name Tiles
-extends Reference
+extends RefCounted
 
 
 func _init(size: Vector2):
