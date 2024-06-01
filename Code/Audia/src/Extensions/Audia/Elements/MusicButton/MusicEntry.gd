@@ -2,8 +2,8 @@ extends PanelContainer
 
 var _path: String
 
-onready var path_label: Label = $"%Path"
-onready var identifier_label: LineEdit = $"%Identifier"
+@onready var path_label: Label = $"%Path3D"
+@onready var identifier_label: LineEdit = $"%Identifier"
 
 var old_p_size := Vector2.ZERO
 var Audioloader = load("res://src/Extensions/Audia/Elements/3rd party/GDScriptAudioImport.gd")
@@ -12,7 +12,7 @@ var audio_stream: AudioStream
 
 
 func _ready() -> void:
-	ExtensionsApi.signals.connect_cel_changed(self, "check_if_timeline_refreshed")
+	ExtensionsApi.signals.signal_cel_switched(check_if_timeline_refreshed)
 
 
 func serialize() -> Dictionary:
@@ -27,12 +27,11 @@ func deserialize(data: Dictionary) -> void:
 	if data.has("path"):
 		_path = data["path"]
 		path_label.text = _path
-		path_label.hint_tooltip = _path
+		path_label.tooltip_text = _path
 		var new_loader = Audioloader.new()
 		audio_stream = new_loader.loadfile(_path)
-		var file_test = File.new()
-		if !file_test.file_exists(_path):
-			path_label.self_modulate = Color.orangered
+		if !FileAccess.file_exists(_path):
+			path_label.self_modulate = Color.ORANGE_RED
 	if data.has("identifier"):
 		identifier_label.text = data["identifier"]
 	reference_data = data
@@ -44,8 +43,8 @@ func prepare_stream():
 	audio_stream = new_loader.loadfile(_path)
 
 
-func _on_Identifier_text_changed(new_text: String) -> void:
-	var project: Project = ExtensionsApi.project.get_current_project()
+func _on_Identifier_text_changed(_new_text: String) -> void:
+	var project: Project = ExtensionsApi.project.current_project
 	var data: Array = project.get_meta("Music", [])
 	data.erase(reference_data)
 	_update_tag(reference_data["identifier"])
@@ -54,7 +53,7 @@ func _on_Identifier_text_changed(new_text: String) -> void:
 
 
 func _on_Close_pressed() -> void:
-	var project: Project = ExtensionsApi.project.get_current_project()
+	var project: Project = ExtensionsApi.project.current_project
 	var data: Array = project.get_meta("Music", [])
 	data.erase(reference_data)
 	queue_free()
@@ -62,26 +61,29 @@ func _on_Close_pressed() -> void:
 
 func _update_tag(old_name: String ,full_refresh := true):
 	var tag_container = ExtensionsApi.general.get_global().tag_container
-	for child in tag_container.get_children():
+	for child: Control in tag_container.get_children():
 		if child.tag.name == old_name:
-			var indicator = child.get_node_or_null("AudioIndicator")
-			if indicator:
-				indicator.queue_free()
+			for element in child.get_children():
+				if element.is_in_group("AudioIndicator"):
+					element.queue_free()
 		if full_refresh:
 			if child.tag.name == identifier_label.text:
-				var indicator = ColorRect.new()
-				indicator.rect_min_size.y = 5
-				indicator.name = "AudioIndicator"
-				indicator.color = child.tag.color
-				child.add_child(indicator)
+				var new_indicator := TextureRect.new()
+				child.add_child(new_indicator)
+				new_indicator.add_to_group("AudioIndicator")
+				new_indicator.modulate = child.tag.color
+				new_indicator.texture = preload("res://src/Extensions/Audia/music_icon.png")
+				new_indicator.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+				new_indicator.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+				new_indicator.size = Vector2.ONE * child.size.y / 1.5
 
 
 func check_if_timeline_refreshed():
-	var project = ExtensionsApi.project.get_current_project()
+	var project = ExtensionsApi.project.current_project
 	var new_size = Vector2(project.frames.size(), project.layers.size())
 	if old_p_size != new_size:
 		old_p_size = new_size
-		yield(get_tree(), "idle_frame")
+		await get_tree().process_frame
 		refresh_self()
 
 
@@ -91,3 +93,4 @@ func refresh_self():
 
 func _exit_tree() -> void:
 	_update_tag(identifier_label.text, false)
+	ExtensionsApi.signals.signal_cel_switched(check_if_timeline_refreshed, true)

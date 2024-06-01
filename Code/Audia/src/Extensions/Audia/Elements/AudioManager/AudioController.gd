@@ -4,11 +4,10 @@ var timer: Timer
 var end_time: float
 
 func start(current_frame: int, tag: AnimationTag, streamer: AudioStream):
-	var project = ExtensionsApi.project.get_current_project()
+	var project = ExtensionsApi.project.current_project
 	timer = ExtensionsApi.general.get_global().animation_timer
 
 	name = tag.name
-	var start = tag.from
 
 	var start_time: float = 0
 	for frame_idx in range(tag.from - 1, tag.to):

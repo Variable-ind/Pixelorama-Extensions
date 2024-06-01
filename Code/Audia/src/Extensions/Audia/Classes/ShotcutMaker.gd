@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 
 var p_path: String
 var dir_path: String
@@ -28,8 +28,7 @@ func compile(size: Vector2):
 		final += data
 	final += END
 	if p_path:
-		var file = File.new()
-		file.open(p_path, file.WRITE)
+		var file = FileAccess.open(p_path, FileAccess.WRITE)
 		file.store_string(final)
 		file.close()
 
@@ -37,7 +36,7 @@ func compile(size: Vector2):
 func add_item_to_playlist(path: String, clip_duration: float):
 	if !p_path:
 		p_path = path.replace(path.get_file(), "project.mlt")
-	var raw = ("""	<producer id="<UNIQUE_ID>" in="00:00:00.000" out="<LENGTH>">
+	var raw = ("""\n	<producer id="<UNIQUE_ID>" in="00:00:00.000" out="<LENGTH>">
 		<property name="length"><LENGTH></property>
 		<property name="eof">pause</property>
 		<property name="resource"><PATH></property>
@@ -59,9 +58,10 @@ func add_item_to_playlist(path: String, clip_duration: float):
 
 
 func calculate_duration(clip_duration: float) -> String:
-	var millis = clip_duration - floor(clip_duration)
+	clip_duration = snappedf(clip_duration, 0.01)
+	var millis = clip_duration - floorf(clip_duration)
 	if millis > 0:
-		var millis_test = str2var(str(millis).get_slice(".", 1))
+		var millis_test = str_to_var(str(millis).get_slice(".", 1))
 		var adder = ""
 		if millis_test < 100:
 			adder = "0"

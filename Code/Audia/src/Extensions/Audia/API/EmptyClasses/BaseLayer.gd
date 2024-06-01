@@ -1,2 +1,2 @@
 class_name BaseLayer
-extends Reference
+extends RefCounted

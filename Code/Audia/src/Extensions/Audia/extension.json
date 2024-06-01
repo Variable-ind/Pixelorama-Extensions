@@ -5,6 +5,6 @@
 "license": "MIT",
 "name": "Audia",
 "nodes": [ "Main.tscn" ],
-"supported_api_versions": [ 3 ],
-"version": "0.14"
+"supported_api_versions": [ 4 ],
+"version": "1.0"
 }

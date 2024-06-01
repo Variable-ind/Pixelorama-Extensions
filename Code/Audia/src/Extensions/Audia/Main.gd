@@ -1,7 +1,7 @@
 extends Node
 
 # some references to nodes that will be created later
-var music_list_container_dialog: WindowDialog
+var music_list_container_dialog: Window
 var exporter_id: int
 var menu_id: int
 
@@ -11,7 +11,7 @@ func _enter_tree() -> void:
 	# place as the (Tools tab) by default
 	music_list_container_dialog = preload(
 		"res://src/Extensions/Audia/Elements/MusicListContainer.tscn"
-	).instance()
+	).instantiate()
 
 #	ExtensionsApi.panel.add_node_as_tab(music_list_container_dialog)
 	ExtensionsApi.dialog.get_dialogs_parent_node().add_child(music_list_container_dialog)
@@ -21,7 +21,8 @@ func _enter_tree() -> void:
 		"extension": ".png",
 		"description": "Shotcut"
 	}
-	exporter_id = ExtensionsApi.exports.add_export_option(info, self, 0, false)
+	var export_tab := ExtensionsApi.export.ExportTab.IMAGE
+	exporter_id = ExtensionsApi.export.add_export_option(info, self, export_tab, false)
 
 
 func menu_item_clicked():
@@ -33,7 +34,6 @@ func override_export(data: Dictionary):
 	var dir_path: String
 	var project = data["project"]
 	var project_maker = load("res://src/Extensions/Audia/Classes/ShotcutMaker.gd").new()
-	var dir := Directory.new()
 	var moved_audios := []
 	var p_size: Vector2
 
@@ -49,7 +49,8 @@ func override_export(data: Dictionary):
 	# save pngs
 	for image_idx in data["processed_images"].size():
 		var save_path = data["export_paths"][image_idx]
-		var image: Image = data["processed_images"][image_idx]
+		var image: Image = data["processed_images"][image_idx].image
+		var duration = data["processed_images"][image_idx].duration
 		image.save_png(save_path)
 		# set the dir path and project size (one time setup)
 		if !dir_path:
@@ -61,19 +62,19 @@ func override_export(data: Dictionary):
 			if tag.name in audio_tags.keys() and tag.from == image_idx + 1:  # Audio Detected
 				var audio_path: String = audio_tags[tag.name]
 				var new_name = str(tag.name, ".", audio_path.get_extension())
-				var new_path: String = dir_path.plus_file(new_name)
+				var new_path: String = dir_path.path_join(new_name)
 				# calculate duration for audio
 				var end_time := 0.0
 				for frame_idx in range(tag.from - 1, tag.to):
 					var frame: Frame = project.frames[frame_idx]
-					var duration = frame.duration * (1.0 / project.fps)
-					end_time += duration
+					var audio_duration = frame.duration * (1.0 / project.fps)
+					end_time += audio_duration
 				# if audio wasn't moved to aseet folder yet then move it there
 				if !new_path in moved_audios:
-					dir.copy(audio_path, new_path)
+					DirAccess.copy_absolute(audio_path, new_path)
 					moved_audios.append(new_path)
 				project_maker.add_item_to_playlist(new_path, end_time)
-		project_maker.add_item_to_playlist(data["export_paths"][image_idx], data["durations"][image_idx])
+		project_maker.add_item_to_playlist(data["export_paths"][image_idx], duration)
 	# Now Compile all this information into a ShotCut project
 	project_maker.compile(p_size)
 	return true
@@ -84,4 +85,4 @@ func _exit_tree() -> void:  # Extension is being uninstalled or disabled
 #	ExtensionsApi.panel.remove_node_from_tab(music_list_container_dialog)
 	ExtensionsApi.menu.remove_menu_item(ExtensionsApi.menu.WINDOW, menu_id)
 	music_list_container_dialog.queue_free()
-	ExtensionsApi.exports.remove_export_option(exporter_id)
+	ExtensionsApi.export.remove_export_option(exporter_id)
